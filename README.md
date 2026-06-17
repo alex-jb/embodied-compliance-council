@@ -1,8 +1,17 @@
 # Embodied Compliance Council
 
+[![CI](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Tests](https://img.shields.io/badge/tests-22%2F22%20passing-brightgreen)](./packages)
+
 **Multi-voice deliberation + calibration discipline + spatial audit for regulated AI workflows.**
 
 A research monorepo producing the open-source AI infrastructure for regulated decision domains — trading book changes, loan origination, wealth-advisory recommendations, and other workflows where confident-but-wrong agents leave no audit trail. Each decision is debated by five disagreement-by-design AI voices, adjudicated, Brier-audited over time, and surfaced through a spatial extended-reality scene with a tamper-evident hash-chain audit trail.
+
+<table>
+<tr>
+<td align="center" width="50%"><strong>Trading vertical</strong><br/><sub>Macro · Sector · Portfolio · Growth-VC · Activist Short</sub><br/><img src="docs/screenshots/trading-quest-hero.png" width="100%" alt="trading-quest WebXR scene preview" /></td>
+<td align="center" width="50%"><strong>Banking vertical</strong><br/><sub>Credit Fundamentals · Risk Officer · Fair Lending · Customer Advocate · Macro Contrarian</sub><br/><img src="docs/screenshots/banking-quest-hero.png" width="100%" alt="banking-quest WebXR scene preview" /></td>
+</tr>
+</table>
 
 **Status:** active research codebase. Capstone project (trading vertical) advised by Prof. Michael Yang. Banking vertical with Dr. NGO and external risk-math collaborator Loredana C. Levitchi. Submission targets: ICAIF 2027 (trading), IEEE journal (banking).
 
