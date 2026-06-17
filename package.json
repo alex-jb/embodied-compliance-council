@@ -11,7 +11,8 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "dev:trading": "npm run dev --workspace apps/trading-quest",
-    "dev:banking": "npm run dev --workspace apps/banking-quest"
+    "dev:banking": "npm run dev --workspace apps/banking-quest",
+    "council": "tsx packages/council-runner/src/cli.ts"
   },
   "license": "MIT"
 }
