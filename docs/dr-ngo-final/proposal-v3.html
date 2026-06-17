@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Loredana Carmen Levitchi (lead)" />
+  <meta name="author" content="Alex Xiaoyu Ji" />
+  <meta name="dcterms.date" content="2026-06-17" />
+  <title>Embodied Compliance Council v3</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="-" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Embodied Compliance Council v3</h1>
+<p class="author">Loredana Carmen Levitchi (lead)</p>
+<p class="author">Alex Xiaoyu Ji</p>
+<p class="date">2026-06-17</p>
+</header>
+<h1 id="embodied-compliance-council">Embodied Compliance Council</h1>
+<h2
+id="auditable-spatial-workspace-for-loan-origination-and-wealth-advisory">Auditable
+Spatial Workspace for Loan Origination and Wealth Advisory</h2>
+<p><strong>Course</strong>: AI for Extended Reality (Dr. Harry NGO) —
+Final Project Proposal <strong>Date</strong>: 2026-06-17 (revision 3,
+supersedes proposal-v2 of 2026-06-17 morning) <strong>Status</strong>:
+Draft for Loredana review. Built on Loredana’s HoloFinanceXR 5-layer
+architecture and her 120-page Aura Alexa BR document; Alex contributes
+the multi-agent backend, the spatial gating protocol, and the deep
+user-pain research that drives the v3 reframe.</p>
+<hr />
+<h2 id="what-changed-since-v2-executive-summary-of-the-reframe">1. What
+changed since v2 (executive summary of the reframe)</h2>
+<p>Version 2 of this proposal led with “five AI voice podiums in WebXR.”
+Two independent deep-research efforts on 2026-06-17 afternoon (banking
+compliance officer / quant / trader pain points; immersive analytics
+empirical literature) returned the same verdict: <strong>the strongest
+wedge is regulator-aligned spatial audit + calibration discipline +
+gaze-as-non-cumbersome-override</strong>, not five voices debating.</p>
+<p>Version 3 keeps the council architecture, the cryptographic audit
+chain, the Quest 3S hardware target, and Loredana’s 5-layer
+HoloFinanceXR stack — but reframes the staging:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>v2 framing (now demoted)</th>
+<th>v3 framing (the wedge)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily-workflow</td>
+<td>None — Quest 3S session only</td>
+<td><strong>Even Realities G2 ($599, no camera) ambient overlay</strong>
+— in-lens contrarian during loan review, all-day wearable</td>
+</tr>
+<tr>
+<td>High-stakes review</td>
+<td>“five podiums in WebXR” as the hero</td>
+<td>Quest 3S <strong>immersive review room</strong> triggered only above
+policy thresholds — for the 4-12x/year case, not the daily 50-loan
+case</td>
+</tr>
+<tr>
+<td>Council voices</td>
+<td>Hero feature</td>
+<td>Plumbing: one verbal contrarian voice surfaces at a time on G2; five
+voices fan-out in the Quest 3S review room</td>
+</tr>
+<tr>
+<td>Audit artifact</td>
+<td>Hash chain (under-emphasized)</td>
+<td><strong>Promoted to hero</strong>: gaze + gesture + verbal-challenge
+transcript signed with WebCrypto SHA-256, mapped 1-to-1 to EU AI Act
+Article 14(4)(d) “non-cumbersome override” + ECOA adverse-action
+documentation</td>
+</tr>
+</tbody>
+</table>
+<p>The reframe strengthens, not weakens, the IEEE paper contribution.
+Reviewers will not ask “why does a banking compliance contribution
+depend on five LLM voices on podiums” because the podiums are no longer
+the contribution. The contribution is the <em>cryptographic audit
+composition</em> and the <em>cross-form-factor spatial gating
+protocol</em>. The five voices remain as the council backend — they just
+stop being the visual hero.</p>
+<hr />
+<h2 id="problem">2. Problem</h2>
+<p>Microsoft HoloLens was discontinued in 2024-10, ending the AR banking
+deployments at Citi (holographic workstations) and Bank of America
+(employee training). Meta Quest 3S ($299) plus WebXR offers a 10x
+cheaper replacement path. Meta’s enterprise pivot has accelerated bank
+adoption (Quest 3S replaced Quest 3 at 3:1 ratio in enterprise fleets,
+Q1 2026). JPMorgan’s VR head departed in early 2026; the firm
+immediately hired an AI scientist from Meta Reality Labs — a public
+signal that institutional finance is moving from “pure VR” to <strong>AI
++ spatial computing</strong>.</p>
+<p>Apple Vision Pro is not a viable form factor for daily banking
+compliance use in 2026. Apple itself halted the Vision Pro overhaul on
+2025-10-01 to reallocate engineering toward lightweight smart glasses
+(Bloomberg, Yahoo Finance 2025-07-09). US Vision Pro sales remain below
+1M units. The <em>daily wear</em> form factor in 2026-2028 is
+lightweight glasses (Even Realities G2, Meta Ray-Ban Display) for
+ambient cognitive support, with immersive headsets reserved for episodic
+deep-review sessions.</p>
+<p>Two unsolved problems in banking AI converge against this
+backdrop:</p>
+<ol type="1">
+<li><p><strong>Explainability and audit gap in AI-driven lending and
+wealth advisory.</strong> EU AI Act Annex III classifies credit-scoring
+AI and creditworthiness assessment as “high-risk,” mandating Article 14
+human oversight and tamper-evident audit logs effective 2026-08-01. The
+U.S. Equal Credit Opportunity Act (12 U.S.C. § 1691) requires lenders to
+provide specific, model-traceable adverse-action explanations; post-2024
+CFPB guidance explicitly states that template phrases such as
+“purchasing history” are non-compliant. Current 2D loan-decisioning
+dashboards make this <em>auditable but slow, opaque to the customer, and
+prone to compliance gaps</em>. The OCC 2024 CRO survey and Oliver Wyman
+2024 CRO Outlook both report regulators have become measurably more
+demanding on evidence of contrarian challenge during review.</p></li>
+<li><p><strong>Multi-agent risk gap.</strong> AI-native finance
+platforms (Orallexa: a 5-persona deliberation council with
+Brier-calibrated audit) score 9/10 on Decision Intelligence but only
+5/10 on Risk Controls and lack the institutional risk primitives
+(Value-at-Risk, Expected Shortfall, factor exposures, concentration
+limits, sector exposure) that banks require. The institutional risk
+layer cannot be surfaced quickly enough at decision moments in current
+2D interfaces.</p></li>
+</ol>
+<p>This proposal addresses both gaps by introducing <strong>embodied
+compliance</strong> — physical spatial gating of bank decisions via a
+multi-agent backend, delivered across <strong>three tiers of
+presentation surface</strong> matched to actual workflow stakes.</p>
+<hr />
+<h2 id="proposed-system-three-tier-presentation-surface">3. Proposed
+System — Three-Tier Presentation Surface</h2>
+<p>We extend Loredana’s HoloFinanceXR 5-layer stack (display / tracking
+/ perception / world-model / interaction, per her IEEE technical report)
+with two additions: a <strong>multi-agent AI backend</strong> and a
+<strong>cross-form-factor spatial gating protocol</strong> that adapts
+the same council backend to three presentation tiers.</p>
+<h3 id="tier-1-desktop-overlay-every-decision-every-day">3.1 Tier 1 —
+Desktop overlay (every decision, every day)</h3>
+<p>A native macOS application reads the analyst’s screen via the
+Accessibility API and ScreenCaptureKit. When a loan file, a credit
+underwriting policy PDF, or a Bloomberg description page is in focus,
+the desktop overlay surfaces a single contrarian voice from the council
+backend: <em>“DTI 47% exceeds policy 4.3 threshold of 43% for B-rated
+borrowers. Why approve?”</em> The analyst answers aloud; the verbal
+challenge plus the response are transcribed, timestamped, and hashed
+into the audit chain. This tier handles the daily 30-50 loan volume.</p>
+<h3 id="tier-2-smart-glasses-overlay-even-realities-g2-599">3.2 Tier 2 —
+Smart-glasses overlay (Even Realities G2, $599)</h3>
+<p>For client-facing review sessions where the analyst cannot use a
+laptop, the Even Realities G2 monocular green HUD displays the same
+contrarian prompt in-lens; the bone-conduction audio whispers the
+adverse-action-safe rephrase. The G2’s deliberate <em>no-camera
+architecture</em> is the moat for regulated industries: as documented by
+Bloomberg Law (2025), AI smart glasses with always-on cameras are a
+workplace compliance liability that the G2 by construction does not
+create. The G2 ships with on-device transcription (Conversate mode)
+which produces examiner-grade evidence of “what was said and considered”
+without exposing the customer’s PII to the cloud.</p>
+<h3
+id="tier-3-quest-3s-immersive-review-room-above-policy-thresholds-only">3.3
+Tier 3 — Quest 3S immersive review room (above policy thresholds
+only)</h3>
+<p>For loan applications above a configurable threshold (default: $250K
+commercial, $50K consumer with policy 4.3 leverage limits triggered, or
+any fair-lending statistical flag), or wealth-advisory rebalancings
+exceeding 5% portfolio shift, the Quest 3S WebXR client opens an
+<strong>immersive review room</strong> with the full five-voice council.
+The review room is <em>not</em> the hero of the product — it is the
+episodic high-stakes deep-dive surface. Inside the room:</p>
+<ul>
+<li><strong>Five council voices</strong> are arranged in a hexagonal
+layout: credit-fundamentals analyst, risk officer, fair-lending
+compliance, customer advocate, macro-environment contrarian. Each voice
+has direct tool access to Loredana’s <code>orallexa.risk</code> Python
+module (<code>var()</code>, <code>expected_shortfall()</code>,
+<code>factor_exposures()</code>, <code>beta_decomposition()</code>,
+<code>concentration_limits()</code>, <code>sector_exposure()</code>,
+<code>correlation_matrix()</code>).</li>
+<li>A <strong>walkable calibration corridor</strong> displays the
+analyst’s last 30 reviewed decisions as physical objects with Brier
+scores floating above. This implements the method-of-loci empirical
+finding (Krokos et al., <em>Virtual Reality</em> 2019; +20-28% recall
+lift in spatial-binding vs flat UI).</li>
+<li>A <strong>3D bias constellation</strong> scatter visualizes the
+analyst’s verdict history as a 3D point cloud (already shipped
+2026-06-17, commit <code>3e8b24c</code>). Approvals cluster in
+high-agreement zones if calibration is healthy; scatter in split-council
+regions reveals rubber-stamping or alpha left on the table. This
+implements the immersive-analytics finding (Kraus et al., <em>Computer
+Graphics Forum</em> 2022) that 3D scatter beats 2D for outlier
+identification and cluster detection in bounded zones.</li>
+<li>A <strong>counterparty / network visualization</strong> for AML or
+concentration review walks the analyst into a 3D force-directed graph of
+related entities. 2D force-directed graphs collapse above ~500 nodes;
+immersive embodied navigation scales to 5,000+ nodes per Kraus
+2022.</li>
+</ul>
+<h3 id="tier-spanning-audit-protocol">3.4 Tier-spanning audit
+protocol</h3>
+<p>Every decision across all three tiers produces a tamper-evident audit
+record using WebCrypto SubtleCrypto SHA-256 hash chains. Each record
+captures: timestamp, decision ID, the council’s challenge text, the
+analyst’s verbal or gestural response, gaze dwell time on each surfaced
+piece of evidence (Vision Pro and Quest 3S inside-out eye tracking), and
+the loan file or position context. The hash chain is exportable in
+formats acceptable to OCC, CFPB, FINRA, and EU AI Act Article 14 audit
+submissions.</p>
+<p>This composition is the <strong>novel contribution</strong> (Section
+4) — the audit chain is no longer a side feature; it is the
+deliverable.</p>
+<hr />
+<h2 id="novel-contribution">4. Novel Contribution</h2>
+<p>This is the first system to treat <strong>spatial gating as a
+cryptographic audit primitive across multiple form factors</strong> for
+regulated bank decisions. The contribution is not a 3D dashboard, not a
+multi-agent debate framework alone, not a compliance log, and not a risk
+module — it is the composition of all four into a single tamper-evident
+protocol that maps cleanly onto Fair Lending Act, ECOA, EU AI Act
+Article 14, and Reg BI, <em>and that spans daily desktop use, ambient
+smart-glasses use, and episodic immersive review</em>.</p>
+<p>The cross-form-factor framing is the v3 strengthening over v2.
+Earlier work (Apex Quant on multi-agent quant trading; Microsoft
+Holoportation; HoloLens enterprise training studies) treats spatial UI
+as either ergonomic or visualization-only, not as audit material, and
+never across multiple form factors simultaneously.</p>
+<p>A search of IEEE VR, IEEE ISMAR, ACM CHI, ACM ICAIF, and arXiv
+(2026-06-17) returns no published work framing spatial UI as a
+<em>regulatory primitive</em> in banking, no prior cross-form-factor
+compliance audit chain, and no prior empirical evaluation of which form
+factor wins for which workflow stake.</p>
+<p>Secondary contributions:</p>
+<ul>
+<li><strong>Orallexa risk upgrade.</strong> We integrate Loredana’s
+institutional risk primitives into Orallexa as typed tool calls
+accessible to each voice, lifting Orallexa from 5/10 to an expected
+8-9/10 on the JPMorgan pressure-test Risk Controls dimension (validated
+in our evaluation methodology, Section 6).</li>
+<li><strong>Empirical XR-wedge finding.</strong> Our user study (Section
+6) is positioned to be the first peer-reviewed RCT on immersive 3D for
+<em>financial</em> anomaly detection specifically. Kraus 2022 covers
+general 3D scatter; the financial-specific gap is unfilled. This is a
+defensible research contribution worth a stand-alone paper.</li>
+<li><strong>Generalization claim.</strong> The same spatial-gating
+protocol generalizes across loan origination and wealth advisory with a
+voice-roster swap and threshold reconfiguration, demonstrating that
+embodied compliance is a transferable primitive across regulated banking
+workflows.</li>
+</ul>
+<hr />
+<h2 id="demo-plan">5. Demo Plan</h2>
+<ul>
+<li><strong>Primary hardware</strong>: Meta Quest 3S 128GB ($299 each,
+two units recommended for joint customer-officer demos).</li>
+<li><strong>Daily-wear hardware</strong>: Even Realities G2 ($599; one
+unit minimum for the in-lens contrarian demo).</li>
+<li><strong>Desktop demo</strong>: native macOS prototype on Apple
+Silicon laptop, runs the council backend locally via the Apple
+Foundation Model framework (Phi-4-class on-device; no PII leaves the
+machine).</li>
+<li><strong>Live web demo</strong>: hello-finance-xr.vercel.app (URL to
+be finalized) hosts the Quest 3S-targeted WebXR build and the
+desktop-mock browser demo.</li>
+</ul>
+<p>A <strong>9-minute live demo</strong> will cover:</p>
+<ol type="1">
+<li><strong>Tier 1 (desktop, 90s)</strong> — analyst opens a loan file
+in Excel; desktop overlay surfaces the Fair Lending contrarian; analyst
+answers aloud; the hash-chained audit record is generated.</li>
+<li><strong>Tier 2 (G2 ambient, 90s)</strong> — same analyst walks to a
+simulated customer meeting room; in-lens prompt surfaces an
+adverse-action-safe denial phrase; bone-conduction whispers a
+follow-up.</li>
+<li><strong>Tier 3 (Quest 3S immersive, 5 min)</strong> — same loan
+flagged by Tier 1 + 2 escalates to immersive review; analyst walks the
+calibration corridor (showing prior similar decisions and their Brier
+audit), inspects the bias constellation (revealing the analyst tends to
+over-approve on B-rated borrowers near the 4.5x leverage cap), enters
+the five-voice council with the customer mirrored to a wall screen
+behind glass.</li>
+<li><strong>Tier-spanning audit export (90s)</strong> — a cryptographic
+audit-trail export shown alongside an example OCC and EU AI Act audit
+submission format, with the gaze-dwell timeline replayed.</li>
+</ol>
+<p>The demo ends with the offline-resilience proof: WiFi disconnected
+mid-Tier-1 demo, the on-device council continues running on the Apple
+Foundation Model framework. This is the regulatory escape-hatch
+slide.</p>
+<hr />
+<h2 id="evaluation-methodology">6. Evaluation Methodology</h2>
+<p>Preserved from Loredana’s IEEE draft:</p>
+<ul>
+<li><strong>Perception</strong>: detection mAP &gt; 0.80, segmentation
+IoU &gt; 0.70, relative depth error reported</li>
+<li><strong>Latency</strong>: frame rate &gt; 60 FPS, motion-to-photon
+&lt; 22 ms, agent tool-call latency end-to-end &lt; 1.5 s</li>
+<li><strong>Gesture and voice</strong>: hand-gesture success &gt; 0.85,
+voice-intent accuracy &gt; 0.90</li>
+<li><strong>User experience</strong>: System Usability Scale &gt; 75,
+NASA-TLX cognitive load reported</li>
+</ul>
+<p>Novel additions for this project:</p>
+<ul>
+<li><strong>Compliance integrity</strong>: 100% of loan or rebalancing
+decisions produce a tamper-evident audit trail, verified by hash-chain
+replay; SEC FIX 5.0SP2, FINRA OATS, OCC HMDA, and EU AI Act audit-export
+formats validated.</li>
+<li><strong>Brier calibration stability</strong>: 5-voice Brier(XR mode)
+≈ Brier(2D control), <em>p</em> &lt; 0.05 — to demonstrate the spatial
+UI does not introduce framing bias.</li>
+<li><strong>Recall lift over 2D control</strong> — between-subjects
+evaluation of analysts’ 7-day recall of specific decision details.
+Target: at least +15% recall accuracy for Quest 3S immersive review vs
+2D dashboard control (the lower bound of Krokos UMD 2019 effect
+size).</li>
+<li><strong>Gaze-dwell audit fidelity</strong> — eye-tracking logs on
+Quest 3S verify analysts actually viewed the fair-lending contrarian
+voice’s report. Target: 95% of approval decisions show &gt; 3 seconds of
+gaze dwell on the fair-lending voice’s evidence card.</li>
+<li><strong>Risk-primitive accuracy</strong>: Orallexa risk module VaR
+and Expected Shortfall validated against historical-simulation baseline
+(5-year SPX backtest); factor exposures validated against Fama-French
+5-factor model.</li>
+<li><strong>Cross-tier decision-time friction</strong>: Tier 1 desktop
+overlay must add &lt; 5 seconds vs unaided review; Tier 3 immersive
+review may add up to +20% vs 2D control given the higher-stakes
+scope.</li>
+</ul>
+<p>A <strong>40-subject within-subjects user study</strong> will be
+conducted: 30 MBA Finance students (loan-officer role-play) and 10
+financial-planning practitioners (wealth-advisor role-play). Each
+subject reviews 12 loan files (6 in 2D control, 6 with the three-tier
+system) in counterbalanced order. IRB approval to be requested by
+Loredana through Yeshiva.</p>
+<hr />
+<h2 id="existing-assets-de-risks-the-proposal">7. Existing Assets
+(De-Risks the Proposal)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Owner</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-page HoloFinanceXR IEEE technical report draft</td>
+<td>Loredana</td>
+<td>Drafted, ready for revisions</td>
+</tr>
+<tr>
+<td>120-page BR document covering Aura Alexa enhancement (VaR,
+correlation, factor analysis, agent integration)</td>
+<td>Loredana</td>
+<td>Drafted; risk implementations to be lifted into
+<code>orallexa.risk</code></td>
+</tr>
+<tr>
+<td>Embodied Compliance Council monorepo (8 packages, 41 tests
+green)</td>
+<td>Alex</td>
+<td>Live, github.com/alex-jb/embodied-compliance-council</td>
+</tr>
+<tr>
+<td><strong>3D Bias Constellation (Phase 1 XR artifact)</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17 (commit <code>3e8b24c</code>)</td>
+</tr>
+<tr>
+<td><strong>Three-user pain research memo (banker, quant,
+trader)</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17
+(docs/research/2026-06-17-three-users-fifteen-pains-xr-edge.md)</td>
+</tr>
+<tr>
+<td><strong>XR vs 2D empirical research memo</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17
+(docs/research/2026-06-17-xr-vs-2d-empirical-memo.md)</td>
+</tr>
+<tr>
+<td><strong>Perception Layer (YOLO-World, SAM2, Depth Anything V2
+protocols + mocks + SceneGrounder)</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17 (7/7 tests green)</td>
+</tr>
+<tr>
+<td>Orallexa multi-agent system (5 voices, production cron,
+Brier-audited)</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>council-diff</code> v0.4.2 (OSS Brier audit engine, MIT, npm +
+skills.sh)</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>council-for-slack-2026</code> (production proof of 5-voice +
+Brier audit in Slack)</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td>Phase 4 EU AI Act + ECOA evaluation design doc</td>
+<td>Alex</td>
+<td>Live (docs/phase-4-eu-ai-act-evaluation-design.md)</td>
+</tr>
+<tr>
+<td>Three.js + WebXR baseline (cross-browser parity since 2026-01)</td>
+<td>W3C</td>
+<td>Standardized</td>
+</tr>
+<tr>
+<td>Anthropic Claude Opus 4.7 with 1M context</td>
+<td>Anthropic</td>
+<td>Released 2026-04-16</td>
+</tr>
+<tr>
+<td>Apple Foundation Model framework (on-device 3B + 20B sparse)</td>
+<td>Apple</td>
+<td>Released with iOS 18 / macOS 15</td>
+</tr>
+<tr>
+<td>MediaPipe Hands, WebCrypto SubtleCrypto API</td>
+<td>Google / W3C</td>
+<td>Standardized, browser-native</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="division-of-labor">8. Division of Labor</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-page proposal, IEEE paper revisions, presentation delivery</td>
+<td>Loredana</td>
+</tr>
+<tr>
+<td>Quest 3S WebXR app (Three.js, WebXR, MediaPipe Hands, hexagonal
+podium scene, calibration corridor, bias constellation)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Native macOS desktop overlay (Tier 1)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Even Realities G2 in-lens contrarian (Tier 2)</td>
+<td>Alex (Loredana SDK access)</td>
+</tr>
+<tr>
+<td>Orallexa risk module integration (lift Loredana’s Python risk code
+into typed tool calls)</td>
+<td>Alex (with Loredana code review)</td>
+</tr>
+<tr>
+<td>Multi-agent backend (5 voice deliberation, Brier audit, Opus 4.7
+prompts, on-device fallback)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Cryptographic audit-trail protocol (WebCrypto + hash chain + OCC /
+CFPB / FINRA / EU AI Act export formats)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Eye-tracking gaze-dwell logger</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>User study design, IRB application, subject recruitment, NASA-TLX
+administration</td>
+<td>Loredana</td>
+</tr>
+<tr>
+<td>Customer-facing scenario design (loan applicant journey, HNW client
+journey)</td>
+<td>Loredana</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="multi-deliverable-mapping">9. Multi-Deliverable Mapping</h2>
+<p>This project intentionally produces five distinct deliverables from a
+shared codebase.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Form</th>
+<th>Class / Venue</th>
+<th>Estimated Due</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-page proposal</td>
+<td>This document</td>
+<td>Dr. Harry NGO (AI for Extended Reality)</td>
+<td>2026-06-17</td>
+</tr>
+<tr>
+<td>Server-client multi-agent prototype + 5-page report</td>
+<td>Code + report</td>
+<td>Dr. Ashikur Nobel</td>
+<td>TBD (course-set)</td>
+</tr>
+<tr>
+<td>Capstone thesis (40-80 pages)</td>
+<td>Full literature review, methodology, evaluation, future work</td>
+<td>Capstone advisor (Prof. Yang)</td>
+<td>2026-12</td>
+</tr>
+<tr>
+<td>Conference paper (8 pages, double-column)</td>
+<td>Compressed format</td>
+<td><strong>ACM ICAIF 2027</strong> (estimated deadline 2026-09-15);
+backup: <strong>IEEE BigData 2026</strong> (December)</td>
+<td>2026-09</td>
+</tr>
+<tr>
+<td>Commercial pilot (Phase 3)</td>
+<td>Native macOS app, mid-tier wealth-mgmt or boutique IB beachhead</td>
+<td>Independent, post-thesis</td>
+<td>2027-01+</td>
+</tr>
+</tbody>
+</table>
+<p>The codebase is shared; each deliverable provides a distinct framing
+and evaluation depth. The capstone advisor will be informed of the
+dual-class origin per academic honesty norms.</p>
+<hr />
+<h2 id="commercialization-path-new-in-v3">10. Commercialization Path
+(New in v3)</h2>
+<p>The cross-form-factor research insight unlocked today identifies a
+defensible <strong>commercial wedge</strong> outside the academic scope:
+a desktop and smart-glasses <em>intern mentor</em> product (working
+name: Shadow) targeting first-year analysts at mid-tier ($5B-$50B AUM)
+wealth-management and boutique investment-banking firms in their first
+90 days. The product reuses the council backend (slimmed from 5 to 3
+voices: junior analyst, senior, compliance), the Perception Layer (for
+screen-region identification), the hash-chain audit (for L&amp;D +
+compliance documentation), and Loredana’s risk primitives (as on-device
+domain knowledge). It adds a macOS screen-capture pipeline, a local-LLM
+router (Phi-4-mini, Gemma 3 9B, Apple Foundation Model 3 Core Advanced),
+and a native desktop overlay.</p>
+<p>Target: $1,500/analyst/year (inside the $1,097-$1,331
+financial-services per-employee L&amp;D budget per ATD 2024). 3-year
+SOM: $18M ARR across five mid-tier firms. This is not part of the
+academic deliverable; it is the post-thesis commercialization path that
+the Embodied Compliance Council research enables. Documented in
+<code>~/Desktop/shadow-mentor/</code> and shipped as a browser-runnable
+demo on 2026-06-17.</p>
+<hr />
+<h2 id="alternative-scopes-for-loredanas-review">11. Alternative Scopes
+(For Loredana’s Review)</h2>
+<p>If a different framing is preferred, three alternatives are prepared.
+The recommended scope is <strong>Option A</strong> below.</p>
+<p><strong>Option A — Cross-form-factor Embodied Compliance Council
+(this document, recommended).</strong> Strongest novelty
+(cross-form-factor audit primitive), strongest multi-deliverable fit,
+direct EU AI Act and Fair Lending Act regulatory hooks, three demoable
+tiers from a single codebase, and a defensible post-thesis
+commercialization path.</p>
+<p><strong>Option B — Quest 3S-only Embodied Compliance Council (close
+to proposal-v2).</strong> Drops desktop and G2 tiers, keeps the
+immersive review room as the sole surface. Faster to ship; weaker IEEE
+paper because the cross-form-factor finding is the strongest research
+claim and ties to the Kraus 2022 empirical literature.</p>
+<p><strong>Option C — Generic Banking Workspace (Loredana’s original
+HoloFinanceXR draft, unchanged).</strong> The 5-layer architecture
+as-is, generic financial advisory scenario. Lower risk, but loses the
+multi-agent integration, the cryptographic audit chain, the EU AI Act
+regulatory hook, and the empirical wedge research.</p>
+<p><strong>Option D — Quant Trading Pre-Trade Compliance.</strong>
+Pivots to institutional hedge-fund pre-trade compliance. Strong novelty
+but loses Loredana’s banking framing and the broader Fair Lending
+audience. Recommended only if the committee specifically prefers trading
+over banking.</p>
+<p>We recommend <strong>Option A</strong> because it composes the
+strongest research contribution (cross-form-factor embodied compliance
+as a primitive), the strongest commercial buyer (banks, regulators), and
+the strongest multi-deliverable fit, while preserving Loredana’s banking
+framing and reusing both her IEEE draft and her 120-page BR document at
+high fidelity.</p>
+<hr />
+<h2
+id="references-representative-full-bibliography-in-the-ieee-paper">References
+(representative; full bibliography in the IEEE paper)</h2>
+<ul>
+<li>L. C. Levitchi, <em>HoloFinanceXR: An AI-Powered Banking XR
+Workspace for Meta Quest 3S and Smart Display Glasses</em>, Final
+Project Technical Report (draft, 2026)</li>
+<li>L. C. Levitchi, <em>Aura Alexa Enhancement with Risk Analytics:
+Business Requirements</em>, 120-page draft (2026)</li>
+<li>A. X. Ji, <em>Orallexa vs JPMorgan Trading Platform: Executive
+Pressure-Test Assessment</em>, 2026</li>
+<li>E. Krokos, C. Plaisant, A. Varshney, “Virtual Memory Palaces:
+Immersion Aids Recall,” <em>Virtual Reality</em> 23, 2019, +20-28%
+recall lift</li>
+<li>M. Kraus et al., “Immersive Analytics with Abstract 3D
+Visualizations: A Survey,” <em>Computer Graphics Forum</em>
+41(1):201-229, 2022</li>
+<li>A. Kirillov et al., <em>Segment Anything</em>, ICCV 2023</li>
+<li>B. Kerbl et al., <em>3D Gaussian Splatting for Real-Time Radiance
+Field Rendering</em>, SIGGRAPH 2023</li>
+<li>W3C Immersive Web Working Group, <em>WebXR Device API</em>, 2026
+candidate recommendation</li>
+<li>12 U.S.C. § 1691 — Equal Credit Opportunity Act (ECOA)</li>
+<li>15 U.S.C. § 1601 — Fair Credit Reporting Act</li>
+<li>European Union, <em>Artificial Intelligence Act</em> (Regulation
+2024/1689), Article 14 — Human Oversight and Annex III — High-Risk AI
+Systems (credit-scoring), effective 2026-08-01</li>
+<li>17 CFR 240.15c3-5 — Market Access Rule (SEC); 17 CFR 240.15l-1 —
+Regulation Best Interest</li>
+<li>Federal Reserve SR 11-7, Guidance on Model Risk Management,
+2011</li>
+<li>OCC Bulletin 2025-16, Disparate Impact and Fair Lending AI
+Guidance</li>
+<li>ATD State of the Industry Report 2024, US financial-services L&amp;D
+spend</li>
+<li>Bloomberg Law, “AI Smart Glasses Workplace Compliance Risks,”
+2025</li>
+<li>Even Realities G2 Smart Glasses Technical Specifications, 2025</li>
+<li>Bloomberg via Yahoo Finance, “Apple Halts Vision Pro Overhaul to
+Focus on Smart Glasses,” 2025-10-01</li>
+<li>Anthropic, <em>Claude Opus 4.7 with 1M Context Window</em>,
+2026-04-16 release notes</li>
+<li>Apple Machine Learning Research, “Third Generation Apple Foundation
+Models,” 2025</li>
+<li>Apex Quant, <em>Multi-Agent Debate for Quantitative Trading
+Signals</em>, SSRN 2026</li>
+</ul>
+<hr />
+<p><em>End of proposal v3. Loredana, please mark any preferred changes
+(especially Option A vs Option B and the three-tier vs Quest-3S-only
+scope), confirm hardware purchase or borrowing plan for Quest 3S and
+Even Realities G2, and return; Alex will revise the technical sections
+you flag and produce the Dr. Nobel-class companion document by the same
+deadline. The Orallexa risk-module merge work can begin in parallel as
+soon as you share the relevant Python files from your 120-page BR
+document.</em></p>
+</body>
+</html>
