@@ -10,7 +10,32 @@ The format loosely follows [Keep a Changelog](https://keepachangelog.com/) but i
 
 ## [Unreleased]
 
-Next planned: actual Vercel deploy of council-runner (one-shot `vercel deploy --prod` per `DEPLOY.md`); banking-side risk-math integration from Loredana Levitchi (Phase B); council-diff v0.5 TREX execution-before-review pattern spec implementation.
+Next planned: actual Vercel deploy of council-runner (one-shot `vercel deploy --prod` per `DEPLOY.md`); banking-side risk-math integration from Loredana Levitchi (Phase B); council-diff v0.5 TREX execution-before-review pattern spec implementation; Orallexa XR vs banking-quest scope resolution after Loredana / Dr. NGO reply.
+
+---
+
+## v0.1.0 — Day 1 monorepo milestone (2026-06-17 evening)
+
+First internal version anchor. Marks the end of the launch-day push from empty `.gitkeep` placeholders to a working 6-package + 2-app stack with **41 tests green** (23 council-runner TS + 11 orallexa-risk Py + 7 perception Py). Annotated tag `v0.1.0`. Not a public release announcement; PyPI / npm publishing deferred until specific packages have user-facing surfaces.
+
+---
+
+## 2026-06-17 (late afternoon — Flow Immersive verdict + Perception Layer scaffold)
+
+### Added
+
+- **`docs/architecture-decision-flow-immersive-2026-06-17.md`** — ADR locks Architecture D (Flow Immersive as presentation layer for ICAIF demo + Katz deck, NOT runtime component). Rejects A/B/C with verbatim facts from `docs.flow.gl` FAQ: Dataset API is the only public API, push is batch-per-call with no sub-5s floor, Editor not Object3D-extensible, no standalone `.html` export, Quest 3/3S not certified, 2-principal SaaS with 6-month release cadence. Two questions for Jason Marsh finalize the GO ([`003c526`](https://github.com/alex-jb/embodied-compliance-council/commit/003c526)).
+- **`apps/trading-quest/src/data-panel.ts`** — Canvas2D textured-plane mesh inside the WebXR scene renders the verdict chain as a stacked bar + recent-5 list. Zero external dependencies. Same `CanvasTexture` interface accepts a 1-day swap to Apache ECharts-GL or three-globe. This is the Architecture E backup so the ECC story holds even if Flow says no to both Jason questions ([`003c526`](https://github.com/alex-jb/embodied-compliance-council/commit/003c526)).
+- **`docs/dr-ngo-final/lora-flow-immersive-reply-2026-06-17.md`** — Reply draft to Loredana Levitchi positioning Flow as presentation layer, including IEEE methodology framing and the Orallexa XR vs banking-quest scope alignment question ([`003c526`](https://github.com/alex-jb/embodied-compliance-council/commit/003c526)).
+- **`packages/perception/`** — Perception Layer scaffolding per Loredana's Version2 proposal. Typed Provider protocols for YOLO-World (open-vocab detection), SAM2 (promptable segmentation), Depth Anything V2 (monocular depth) + deterministic `MockProvider` per primitive + `SceneGrounder` composing the three into `PerceptionResult` with pixel-box → Three.js camera-space projection. 7/7 pytest tests green covering API contract + projection invariants. Real model adapters live behind `[yolo_world]` / `[sam2]` / `[depth_anything]` / `[all]` optional dependency extras, stubbed pending Phase 2 ([`012e912`](https://github.com/alex-jb/embodied-compliance-council/commit/012e912)).
+
+### Changed
+
+- **`apps/trading-quest/src/main.ts`** — wires `DataPanel` into the scene; each `fire_synthetic_decision` chain update calls `data_panel.update(chain)` so the texture refreshes inline with the audit panel ([`003c526`](https://github.com/alex-jb/embodied-compliance-council/commit/003c526)).
+
+### Decisions and research verdicts (non-code)
+
+- **Flow Immersive integration verdict: Architecture D only**, conditional GO pending Jason Marsh's answers on standalone `.html` export + Dataset API sub-5s push floor. Best non-Flow alternative if Architecture D collapses: Apache ECharts-GL via `CanvasTexture`. POC committed today (see Added section).
 
 ---
 
