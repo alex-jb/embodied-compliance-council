@@ -83,14 +83,54 @@ function verdict_for_gesture(g: Gesture): "approve" | "block" | "escalate" | nul
   return null;
 }
 
+const COUNCIL_SERVER_URL = "http://localhost:3030/api/deliberate";
+let use_real_council = false;
+
+async function fetch_real_decision(action: string): Promise<CouncilDecision | null> {
+  try {
+    const response = await fetch(COUNCIL_SERVER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ vertical: VERTICAL, proposed_action: action, provider: "mock" }),
+    });
+    const json = await response.json();
+    if (!json.ok) {
+      console.error("council-runner error:", json.error);
+      return null;
+    }
+    return json.output as CouncilDecision;
+  } catch (err) {
+    console.error("council-runner unreachable:", err);
+    return null;
+  }
+}
+
 async function fire_synthetic_decision(gesture: Gesture = "none") {
+  const action = "BUY 10 NVDA";
+  let decision: CouncilDecision;
+  if (use_real_council) {
+    const real = await fetch_real_decision(action);
+    if (real) {
+      decision = real;
+    } else {
+      decision = build_local_decision(action, gesture);
+    }
+  } else {
+    decision = build_local_decision(action, gesture);
+  }
+  const entry = await append_entry(chain, decision);
+  chain.push(entry);
+  audit_panel.render(chain);
+}
+
+function build_local_decision(action: string, gesture: Gesture): CouncilDecision {
   const verdict =
     verdict_for_gesture(gesture) ??
     (["approve", "block", "escalate"][chain.length % 3] as "approve" | "block" | "escalate");
-  const decision: CouncilDecision = {
+  return {
     decision_id: `d${chain.length + 1}`,
     vertical: VERTICAL,
-    proposed_action: "BUY 10 NVDA",
+    proposed_action: action,
     aggregate_verdict: verdict,
     timestamp_iso: new Date().toISOString(),
     verdicts: semicircle_layout(VERTICAL).map((p) => ({
@@ -101,9 +141,6 @@ async function fire_synthetic_decision(gesture: Gesture = "none") {
       raw_json: {},
     })),
   };
-  const entry = await append_entry(chain, decision);
-  chain.push(entry);
-  audit_panel.render(chain);
 }
 
 window.addEventListener("keydown", (e) => {
@@ -137,3 +174,24 @@ hand_button.addEventListener("click", async () => {
   }
 });
 document.body.appendChild(hand_button);
+
+const council_button = document.createElement("button");
+council_button.className = "xr-button";
+council_button.style.left = "50%";
+council_button.style.transform = "translateX(-50%)";
+council_button.style.bottom = "12px";
+council_button.textContent = "Council: mock";
+council_button.addEventListener("click", async () => {
+  use_real_council = !use_real_council;
+  council_button.textContent = use_real_council ? "Council: live (mock provider via :3030)" : "Council: mock";
+  if (use_real_council) {
+    try {
+      const health = await fetch("http://localhost:3030/health");
+      if (!health.ok) throw new Error("server not healthy");
+    } catch {
+      council_button.textContent = "Council: server unreachable (run npm run council:server)";
+      use_real_council = false;
+    }
+  }
+});
+document.body.appendChild(council_button);
