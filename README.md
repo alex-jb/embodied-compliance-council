@@ -10,21 +10,27 @@ License: MIT.
 
 ## Academic Honesty Declaration
 
-This codebase intentionally produces **four distinct academic and conference deliverables** for **three classes plus one conference**, sharing architectural primitives but each with its own framing, scope, and evaluation depth:
+This codebase produces **four distinct academic and conference deliverables** for **three classes plus one conference**. Two are co-authored with collaborators; two are solo. Each has its own framing, scope, and evaluation depth; together they share architectural primitives in `packages/`.
 
-| Deliverable | Course / Venue | Location | Framing |
+| Deliverable | Course / Venue | Location | Owner / Framing |
 |---|---|---|---|
-| 1-page Final Project Proposal | Dr. Harry NGO — AI for Extended Reality | [`docs/dr-ngo-final/`](./docs/dr-ngo-final/) | Banking (Loan + Wealth Advisory). Joint work with Loredana C. Levitchi. |
-| 5-page Server-Client Multi-Agent Prototype report | Dr. Ashikur Nobel | [`docs/dr-nobel-companion/`](./docs/dr-nobel-companion/) | Server-client multi-agent communication protocol; client = Quest WebXR podium, server = 5 Python voice processes. |
-| Capstone Thesis (40–80 pages) | Prof. Michael Yang — COM 6000-CP1 | [`docs/capstone-thesis/`](./docs/capstone-thesis/) | Solo focus: **Trading vertical — Pre-Trade Compliance for institutional hedge funds**. |
-| 8-page Conference Paper | ACM ICAIF 2027 (deadline ~2026-09-15) | [`docs/papers/icaif-2027/`](./docs/papers/icaif-2027/) | Unified "Embodied Compliance" framework, tested in both banking and trading verticals. |
+| 1-page Final Project Proposal — Banking (Loan + Wealth Advisory) | Dr. Harry NGO — AI for Extended Reality | [`docs/dr-ngo-final/`](./docs/dr-ngo-final/) · app [`apps/banking-quest/`](./apps/banking-quest/) | **Loredana C. Levitchi (lead) + Alex Xiaoyu Ji (technical demo)** |
+| 5-page Server-Client Multi-Agent Prototype | Dr. Ashikur Nobel | [`docs/dr-nobel-companion/`](./docs/dr-nobel-companion/) | **Alex solo.** Demonstrates the council's server-client protocol independent of vertical. |
+| Capstone Thesis — Calibration-Disciplined Pre-Trade Compliance Spatial Council for Live Trading | Prof. Michael Yang — COM 6000-CP1 | [`docs/capstone-thesis/`](./docs/capstone-thesis/) · app [`apps/trading-quest/`](./apps/trading-quest/) | **Alex solo.** Extends an earlier Week 1-2 calibration thesis with a spatial-gating audit-primitive layer. |
+| 8-page Conference Paper | ACM ICAIF 2027 (deadline ~2026-09-15) | [`docs/papers/icaif-2027/`](./docs/papers/icaif-2027/) | **Alex + Lora co-author.** Unified "Embodied Compliance" framework tested in both verticals. |
 
-Each deliverable cites its sibling per academic honesty norms. Capstone thesis and Dr. NGO proposal share architectural primitives (the `packages/` directory) but apply them to **different finance verticals with different regulatory hooks**:
+Each deliverable cites its sibling per academic honesty norms.
 
-- Banking app → Fair Lending Act, ECOA, EU AI Act Annex III (credit-scoring as "high-risk")
-- Trading app → SEC Rule 15c3-5 (Market Access Rule), EU AI Act Article 14 (human oversight)
+### Capstone scope note
 
-The capstone advisor (Michael Yang) and Dr. NGO have been informed of this multi-deliverable strategy.
+The Capstone (Yang's class) thesis was originally scoped as "From Paper to Production: Calibration Discipline in a Solo-Operated AI Trading Agent" in Week 1-2. The Week 3 falsification gate triggering produced an empirical strengthening of the calibration claim. Week 4 onwards the thesis is being extended to **"Calibration as the Audit Primitive for Spatial Pre-Trade Compliance"**, integrating an XR spatial-gating layer atop the validated Orallexa backend. Yang has been notified by amendment email; the scope extension is measurement-first (Phase 1 = 6 calibration upgrades, Weeks 4-6; Phase 2 = spatial layer on validated backend, Weeks 7-10).
+
+### Repository scope
+
+- `apps/banking-quest/` is the Dr. NGO + Lora project.
+- `apps/trading-quest/` is the Capstone (Yang).
+- `apps/multi-agent-demo/` (TBD) is the Dr. Nobel companion.
+- `packages/` (orallexa-risk, council-voices, spatial-gating-protocol) are shared infrastructure across all three apps.
 
 ---
 
