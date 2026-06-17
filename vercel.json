@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "echo 'no build step required'",
+  "installCommand": "npm install --include=dev",
+  "functions": {
+    "api/deliberate.ts": {
+      "runtime": "@vercel/node@5",
+      "maxDuration": 30
+    }
+  }
+}
