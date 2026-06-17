@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { buildScene } from "./scene.js";
 import { AuditPanel } from "./audit-panel.js";
+import { DataPanel } from "./data-panel.js";
 import {
   append_entry,
   semicircle_layout,
@@ -23,6 +24,9 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.set(0, 1.6, 0);
 
 const scene = buildScene(VERTICAL, semicircle_layout(VERTICAL));
+
+const data_panel = new DataPanel();
+scene.add(data_panel.mesh);
 
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -133,6 +137,7 @@ async function fire_synthetic_decision(gesture: Gesture = "none") {
   const entry = await append_entry(chain, decision);
   chain.push(entry);
   audit_panel.render(chain);
+  data_panel.update(chain);
 }
 
 function build_local_decision(action: string, gesture: Gesture): CouncilDecision {
