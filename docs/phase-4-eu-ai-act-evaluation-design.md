@@ -130,6 +130,16 @@ Pre-registration prevents p-hacking and is explicitly required by ICAIF 2027 sub
 
 ---
 
+## 8.5. Related work — OpenAI Deployment Simulation (2026-06)
+
+OpenAI's [Deployment Simulation](https://openai.com/index/deployment-simulation) paper (2026-06) proposes using historical conversation data to predict a new model's deployment behavior *before* the model goes live. The methodology partially overlaps with this Phase 4 design and partially complements it.
+
+**Overlap:** Both efforts treat pre-deployment behavior prediction as a calibration-and-audit primitive, not a marketing surface. Both produce structured artifacts (Brier-scored verdicts here, distributional predictions in OpenAI's case) that downstream regulators can interrogate.
+
+**Difference:** Deployment Simulation is intra-model — same architecture, new weights, simulated against past prompts. Phase 4 is inter-architecture — single-voice baseline vs five-voice council against the same regulated decisions. The two methodologies are stackable: a council-of-simulations is a coherent research direction once both primitives exist.
+
+**Phase 4 contribution after considering OpenAI's work:** the spatial XR presentation layer, the per-voice tool restriction structure, and the regulatory-frame motivation (Article 14 + Reg B specifically, not just "safety") remain unique. Cite OpenAI's work as related; do not pretend it does not exist; do not claim novelty on the parts that overlap.
+
 ## 9. Dependencies
 
 - Phase 1 #1-#6 fully integrated and producing per-voice Brier histories (status as of 2026-06-17: #1-#2 production; #3-#6 wire-up scripts shipped, cron not yet installed)
