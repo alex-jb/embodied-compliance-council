@@ -2,7 +2,7 @@
 
 > **English** · [中文](./README.zh-CN.md)
 
-[![CI](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Tests](https://img.shields.io/badge/tests-33%2F33%20passing-brightgreen)](./packages)
+[![CI](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Tests](https://img.shields.io/badge/tests-41%2F41%20passing-brightgreen)](./packages) [![Release](https://img.shields.io/badge/release-v0.1.0-blue)](https://github.com/alex-jb/embodied-compliance-council/releases/tag/v0.1.0)
 
 **Multi-voice deliberation + calibration discipline + spatial audit for regulated AI workflows.**
 
