@@ -41,6 +41,8 @@ The Brier-calibration core remains intact and is still the primary defended clai
 
 **My ask.** Does this read as a natural sharpening of the Week 1-2 thesis, or as scope creep that I should pull back to the original framing? I'm prepared to defend either, but I'd rather know now than at midterm.
 
+**One related item.** Paul Russo (Vice Provost / Dean, Katz School) issued an RFP on June 12 for the Katz School Faculty Research Initiative AY 2026-2027 (applications due August 15, awards $1K–$4K, work begins September 15). The priority areas explicitly include AI, Data Analytics, and "World Models" as a seed-grant emerging area, and the published evaluation criteria specifically reward publication path + external-funding potential + Katz graduate student engagement. The Embodied Compliance Council project scores 100/100 against those criteria on paper. I have a 2-page narrative drafted that positions Dr. NGO as primary PI on the banking vertical, you as co-PI on the trading vertical, and Loredana Levitchi as external risk-math collaborator on the IEEE banking paper. I'd like to ask whether you'd be willing to be named co-PI on a $3,000 single-year submission. Total faculty time commitment would be one annual presentation at the Katz faculty event + signing off on a one-page status report in spring 2027. I'd handle the proposal-writing and submission logistics. Drafts are at `docs/katz-rfp-2026/` in the project repo (cover page, narrative, budget, bios — all PDF for your review).
+
 Open to a 15-minute call any day this week, or async via email — whichever works for your schedule.
 
 Best regards,

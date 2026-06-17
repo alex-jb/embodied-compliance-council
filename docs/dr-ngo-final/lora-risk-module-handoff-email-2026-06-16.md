@@ -31,6 +31,8 @@ I will handle the Python packaging, the test suite, and CI on the orallexa-risk 
 
 **Timeline check:** I am targeting the proposal v2 final submission to Dr. NGO by [check syllabus deadline]. The IEEE paper draft can come after that. Does that work on your side?
 
+**Related — Katz Faculty Research Initiative.** Paul Russo (Vice Provost / Dean, Katz) issued an RFP June 12 for an AY 2026-2027 faculty research seed grant (applications due August 15, $1K–$4K range). The priority areas — AI, Data Analytics, World Models — fit the Embodied Compliance Council project almost too well. I'm preparing a submission with Dr. NGO as primary PI on the banking vertical (since she has the institutional standing at Katz to be PI). I'd like to name you as the external risk-math collaborator and IEEE-paper co-author on the proposal — no commitment from your side beyond what we're already discussing here, but it strengthens the proposal substantially. If you're comfortable, I'd just need a 100-word bio for the appendix. I'll forward the full draft (cover page + 2-page narrative + budget + bios — all PDF) once Dr. NGO confirms she's willing to be PI. No action needed from you right now, just flagging the timeline.
+
 Thanks again for being on this — the joint framing makes both the academic and the technical contribution stronger.
 
 Alex
