@@ -7,6 +7,7 @@ import {
   type ChainEntry,
   type CouncilDecision,
 } from "@embodied-compliance/spatial-gating-protocol";
+import { HandTracker, type Gesture } from "@embodied-compliance/hand-gestures";
 
 const VERTICAL = "banking" as const;
 
@@ -75,21 +76,28 @@ document.body.appendChild(xr_button);
 const audit_panel = new AuditPanel(document.getElementById("audit-entries")!);
 const chain: ChainEntry[] = [];
 
-async function fire_synthetic_decision() {
+function verdict_for_gesture(g: Gesture): "approve" | "decline" | "escalate" | null {
+  if (g === "approve") return "approve";
+  if (g === "block") return "decline";
+  if (g === "escalate") return "escalate";
+  return null;
+}
+
+async function fire_synthetic_decision(gesture: Gesture = "none") {
+  const verdict =
+    verdict_for_gesture(gesture) ??
+    (["approve", "decline", "escalate"][chain.length % 3] as "approve" | "decline" | "escalate");
   const decision: CouncilDecision = {
     decision_id: `loan_${chain.length + 1}`,
     vertical: VERTICAL,
     proposed_action: "ORIGINATE $750K CRE loan, 7yr amort",
-    aggregate_verdict: ["approve", "decline", "escalate"][chain.length % 3] as
-      | "approve"
-      | "decline"
-      | "escalate",
+    aggregate_verdict: verdict,
     timestamp_iso: new Date().toISOString(),
     verdicts: semicircle_layout(VERTICAL).map((p) => ({
       voice_id: p.voice_id,
       verdict: "approve",
       rationale_short: `${p.voice_id} synthetic`,
-      primary_concern: "demo entry",
+      primary_concern: gesture === "none" ? "demo entry" : `gesture:${gesture}`,
       raw_json: {},
     })),
   };
@@ -104,3 +112,28 @@ window.addEventListener("keydown", (e) => {
     void fire_synthetic_decision();
   }
 });
+
+const hand_button = document.createElement("button");
+hand_button.className = "xr-button";
+hand_button.style.left = "auto";
+hand_button.style.right = "12px";
+hand_button.style.bottom = "12px";
+hand_button.textContent = "Enable hand tracking";
+hand_button.addEventListener("click", async () => {
+  hand_button.disabled = true;
+  hand_button.textContent = "Loading MediaPipe...";
+  try {
+    const tracker = new HandTracker();
+    await tracker.init();
+    await tracker.start_webcam({ preview_corner: "top-right", preview_width_px: 180 });
+    tracker.on((event) => {
+      void fire_synthetic_decision(event.gesture);
+    });
+    hand_button.textContent = "Hand tracking ON";
+  } catch (err) {
+    console.error(err);
+    hand_button.textContent = "Hand tracking failed";
+    hand_button.disabled = false;
+  }
+});
+document.body.appendChild(hand_button);

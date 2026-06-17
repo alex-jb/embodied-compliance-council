@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@embodied-compliance/hand-gestures": "*",
     "@embodied-compliance/spatial-gating-protocol": "*",
     "three": "^0.169.0"
   },
