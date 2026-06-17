@@ -7,7 +7,7 @@ import {
   type ChainEntry,
   type CouncilDecision,
 } from "@embodied-compliance/spatial-gating-protocol";
-import { HandTracker, type Gesture } from "@embodied-compliance/hand-gestures";
+import { HandTracker, XRHandTracker, type Gesture } from "@embodied-compliance/hand-gestures";
 
 const VERTICAL = "banking" as const;
 
@@ -47,10 +47,22 @@ window.addEventListener("pointermove", (e) => {
   last = { x: e.clientX, y: e.clientY };
 });
 
-renderer.setAnimationLoop(() => {
+const xr_hand_tracker = new XRHandTracker();
+xr_hand_tracker.on((event) => {
+  void fire_synthetic_decision(event.gesture);
+});
+
+renderer.setAnimationLoop((_time, frame) => {
   camera.rotation.order = "YXZ";
   camera.rotation.y = yaw;
   camera.rotation.x = pitch;
+  if (frame && renderer.xr.isPresenting) {
+    const session = renderer.xr.getSession();
+    const ref_space = renderer.xr.getReferenceSpace();
+    if (session && ref_space) {
+      xr_hand_tracker.tick(frame as any, session as any, ref_space);
+    }
+  }
   renderer.render(scene, camera);
 });
 
