@@ -12,7 +12,8 @@
     "test": "npm run test --workspaces --if-present",
     "dev:trading": "npm run dev --workspace apps/trading-quest",
     "dev:banking": "npm run dev --workspace apps/banking-quest",
-    "council": "tsx packages/council-runner/src/cli.ts"
+    "council": "tsx packages/council-runner/src/cli.ts",
+    "council:server": "tsx packages/council-runner/src/server.ts"
   },
   "license": "MIT"
 }

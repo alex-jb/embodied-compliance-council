@@ -10,7 +10,8 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "cli": "tsx src/cli.ts"
+    "cli": "tsx src/cli.ts",
+    "server": "tsx src/server.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.0",
