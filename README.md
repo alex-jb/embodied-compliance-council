@@ -1,6 +1,8 @@
 # Embodied Compliance Council
 
-[![CI](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Tests](https://img.shields.io/badge/tests-22%2F22%20passing-brightgreen)](./packages)
+> **English** · [中文](./README.zh-CN.md)
+
+[![CI](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-jb/embodied-compliance-council/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Tests](https://img.shields.io/badge/tests-33%2F33%20passing-brightgreen)](./packages)
 
 **Multi-voice deliberation + calibration discipline + spatial audit for regulated AI workflows.**
 
