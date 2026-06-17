@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { buildScene } from "./scene.js";
 import { AuditPanel } from "./audit-panel.js";
 import { DataPanel } from "./data-panel.js";
+import { BiasConstellation } from "./bias-constellation.js";
 import {
   append_entry,
   semicircle_layout,
@@ -27,6 +28,9 @@ const scene = buildScene(VERTICAL, semicircle_layout(VERTICAL));
 
 const data_panel = new DataPanel();
 scene.add(data_panel.mesh);
+
+const bias_constellation = new BiasConstellation();
+scene.add(bias_constellation.group);
 
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -138,6 +142,7 @@ async function fire_synthetic_decision(gesture: Gesture = "none") {
   chain.push(entry);
   audit_panel.render(chain);
   data_panel.update(chain);
+  bias_constellation.update(chain);
 }
 
 function build_local_decision(action: string, gesture: Gesture): CouncilDecision {
@@ -212,3 +217,18 @@ council_button.addEventListener("click", async () => {
   }
 });
 document.body.appendChild(council_button);
+
+const constellation_button = document.createElement("button");
+constellation_button.className = "xr-button";
+constellation_button.style.left = "12px";
+constellation_button.style.bottom = "60px";
+constellation_button.textContent = "Bias constellation: off";
+let constellation_visible = false;
+constellation_button.addEventListener("click", () => {
+  constellation_visible = !constellation_visible;
+  bias_constellation.set_visible(constellation_visible);
+  constellation_button.textContent = constellation_visible
+    ? "Bias constellation: on"
+    : "Bias constellation: off";
+});
+document.body.appendChild(constellation_button);
