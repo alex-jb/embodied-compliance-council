@@ -7,4 +7,6 @@ export type {
 
 export { load_voice_from_file, load_voices_for_vertical } from "./loader.js";
 export { MockProvider } from "./mock-provider.js";
+export { AnthropicProvider, parse_voice_response } from "./anthropic-provider.js";
+export type { AnthropicLike, AnthropicProviderOptions } from "./anthropic-provider.js";
 export { deliberate } from "./runner.js";
