@@ -1,0 +1,17 @@
+{
+  "name": "embodied-compliance-council",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Multi-voice deliberation council + calibration discipline + spatial gating for regulated AI workflows.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:trading": "npm run dev --workspace apps/trading-quest",
+    "dev:banking": "npm run dev --workspace apps/banking-quest"
+  },
+  "license": "MIT"
+}

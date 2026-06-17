@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banking Quest — Embodied Compliance Council</title>
+    <style>
+      :root { color-scheme: dark; }
+      html, body { margin: 0; padding: 0; height: 100%; background: #06080c; color: #e6e9ef; font-family: ui-monospace, "SF Mono", Menlo, monospace; overflow: hidden; }
+      #app { position: fixed; inset: 0; }
+      #hud {
+        position: fixed; top: 12px; left: 12px; padding: 10px 14px;
+        background: rgba(20, 24, 32, 0.78); border: 1px solid #2a3140;
+        border-radius: 6px; font-size: 12px; line-height: 1.5; z-index: 10;
+        max-width: 360px;
+      }
+      #hud h1 { margin: 0 0 4px; font-size: 13px; color: #fbbf24; }
+      #audit { position: fixed; bottom: 12px; right: 12px; max-width: 420px; max-height: 50vh; overflow: auto;
+        background: rgba(20, 24, 32, 0.85); border: 1px solid #2a3140; border-radius: 6px;
+        font-size: 11px; padding: 10px 12px; z-index: 10; }
+      #audit h2 { margin: 0 0 6px; font-size: 12px; color: #7dd3fc; }
+      .entry { border-top: 1px dashed #2a3140; padding: 4px 0; }
+      .entry .hash { color: #94a3b8; word-break: break-all; }
+      .entry .verdict-approve { color: #4ade80; }
+      .entry .verdict-decline { color: #f87171; }
+      .entry .verdict-escalate { color: #fbbf24; }
+      .xr-button {
+        position: fixed; bottom: 12px; left: 12px; padding: 8px 14px;
+        background: #1e293b; color: #e6e9ef; border: 1px solid #475569;
+        border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px;
+      }
+      .xr-button:hover { background: #334155; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="hud">
+      <h1>BANKING COUNCIL</h1>
+      <div>5 voices • semicircle layout • WebXR ready</div>
+      <div style="margin-top: 6px; color: #94a3b8;">Drag to look around. Press <b>SPACE</b> to fire a synthetic loan decision.</div>
+    </div>
+    <div id="audit">
+      <h2>HASH-CHAIN AUDIT</h2>
+      <div id="audit-entries">no decisions yet — press space</div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
