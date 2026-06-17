@@ -10,9 +10,12 @@ References (capstone literature review will expand):
 """
 from __future__ import annotations
 
+import math
 from typing import Literal
 
+import numpy as np
 from pydantic import BaseModel, Field
+from scipy import stats
 
 
 class VarInput(BaseModel):
@@ -65,12 +68,40 @@ class VarOutput(BaseModel):
 def var(inp: VarInput) -> VarOutput:
     """Compute portfolio VaR.
 
-    PHASE A — STUB. Real implementation lifted from Loredana's Aura Alexa BR doc
-    in Phase B (estimated 2-3 days after she shares the Python source).
+    PHASE A — v0 textbook implementation. Phase B will replace with
+    Loredana's BR doc Section 4.2 implementation (Cornish-Fisher correction,
+    GARCH conditional VaR, EVT tails) once shared.
     """
-    raise NotImplementedError(
-        "Phase A scaffold. Phase B: lift implementation from Loredana's BR doc "
-        "Section 4.2 (Value-at-Risk Calculation, 12 pages)."
+    returns = np.asarray(inp.portfolio_returns, dtype=float)
+    alpha = 1.0 - inp.confidence_level
+
+    if inp.method == "historical":
+        var_1d = -float(np.quantile(returns, alpha))
+    elif inp.method == "parametric":
+        mu = float(returns.mean())
+        sigma = float(returns.std(ddof=1))
+        z = float(stats.norm.ppf(alpha))
+        var_1d = -(mu + sigma * z)
+    else:
+        rng = np.random.default_rng(seed=42)
+        mu = float(returns.mean())
+        sigma = float(returns.std(ddof=1))
+        simulated = rng.normal(mu, sigma, size=10000)
+        var_1d = -float(np.quantile(simulated, alpha))
+
+    var_value = var_1d * math.sqrt(inp.horizon_days)
+    pct = var_value * 100
+    interpretation = (
+        f"At {int(inp.confidence_level * 100)}% confidence over {inp.horizon_days}d, "
+        f"max expected loss is {pct:.2f}% of portfolio value ({inp.method} VaR, n={len(returns)})."
+    )
+    return VarOutput(
+        var_value=var_value,
+        confidence_level=inp.confidence_level,
+        method=inp.method,
+        horizon_days=inp.horizon_days,
+        sample_size=len(returns),
+        interpretation=interpretation,
     )
 
 

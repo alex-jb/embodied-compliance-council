@@ -8,9 +8,12 @@ Used by Risk Officer voice + Activist Short voice during deliberation.
 """
 from __future__ import annotations
 
+import math
 from typing import Literal
 
+import numpy as np
 from pydantic import BaseModel, Field
+from scipy import stats
 
 
 class ExpectedShortfallInput(BaseModel):
@@ -33,9 +36,56 @@ class ExpectedShortfallOutput(BaseModel):
 def expected_shortfall(inp: ExpectedShortfallInput) -> ExpectedShortfallOutput:
     """Compute Expected Shortfall (CVaR).
 
-    PHASE A — STUB. Phase B lifts implementation from Loredana's BR doc.
+    PHASE A — v0 textbook implementations:
+      - historical: average of returns below the empirical (1-c) quantile.
+      - parametric: closed-form Gaussian ES = mu + sigma * phi(z) / alpha (negated to loss sign).
+      - cornish_fisher: parametric with skewness + kurtosis correction (Cornish-Fisher expansion).
+    Phase B will replace with Loredana's BR doc Section 4.3 versions (GARCH conditional ES,
+    extreme value theory tails).
     """
-    raise NotImplementedError("Phase A scaffold; Phase B from Loredana's BR doc Section 4.3.")
+    returns = np.asarray(inp.portfolio_returns, dtype=float)
+    alpha = 1.0 - inp.confidence_level
+    mu = float(returns.mean())
+    sigma = float(returns.std(ddof=1))
+    sqrt_h = math.sqrt(inp.horizon_days)
+
+    if inp.method == "historical":
+        threshold = float(np.quantile(returns, alpha))
+        tail = returns[returns <= threshold]
+        tail_n = int(tail.size)
+        var_1d = -threshold
+        es_1d = -float(tail.mean()) if tail_n > 0 else var_1d
+    else:
+        z_alpha = float(stats.norm.ppf(alpha))
+        if inp.method == "cornish_fisher":
+            sk = float(stats.skew(returns, bias=False))
+            kt = float(stats.kurtosis(returns, fisher=True, bias=False))
+            z_alpha = (
+                z_alpha
+                + (z_alpha**2 - 1) * sk / 6
+                + (z_alpha**3 - 3 * z_alpha) * kt / 24
+                - (2 * z_alpha**3 - 5 * z_alpha) * (sk**2) / 36
+            )
+        phi_z = float(stats.norm.pdf(z_alpha))
+        es_1d = -(mu - sigma * phi_z / alpha)
+        var_1d = -(mu + sigma * z_alpha)
+        tail_n = 0
+
+    var_value = var_1d * sqrt_h
+    es_value = es_1d * sqrt_h
+    interpretation = (
+        f"At {int(inp.confidence_level * 100)}% confidence, mean loss in the worst {int(alpha * 100)}% "
+        f"tail is {es_value*100:.2f}% over {inp.horizon_days}d ({inp.method}, n={returns.size}, "
+        f"tail_n={tail_n}). Companion VaR = {var_value*100:.2f}%."
+    )
+    return ExpectedShortfallOutput(
+        es_value=es_value,
+        var_value=var_value,
+        confidence_level=inp.confidence_level,
+        method=inp.method,
+        tail_observations=tail_n,
+        interpretation=interpretation,
+    )
 
 
 def expected_shortfall_tool_schema() -> dict:

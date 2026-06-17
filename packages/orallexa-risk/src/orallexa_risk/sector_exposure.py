@@ -40,11 +40,71 @@ class SectorExposureOutput(BaseModel):
 
 
 def sector_exposure(inp: SectorExposureInput) -> SectorExposureOutput:
-    """Compute sector-level exposure and flag deviations from benchmark.
+    """Aggregate positions into sectors and flag benchmark deviations.
 
-    PHASE A — STUB. Phase B: implementation from Loredana's BR doc.
+    PHASE A — v0 textbook implementation. Phase B will replace with Loredana's
+    BR doc Section 6.2 (GICS sub-industry hierarchy, factor-style overweights,
+    cycle-aware risk-weighted exposures).
     """
-    raise NotImplementedError("Phase A scaffold; Phase B from Loredana's BR doc Section 6.2.")
+    if not inp.weights:
+        raise ValueError("weights map must not be empty")
+    total = sum(inp.weights.values())
+    if total <= 0:
+        raise ValueError("weights must sum to a positive value")
+
+    aggregated: dict[str, float] = {}
+    for ticker, weight in inp.weights.items():
+        sector = inp.sector_map.get(ticker)
+        if sector is None:
+            raise ValueError(f"sector_map missing entry for ticker {ticker}")
+        aggregated[sector] = aggregated.get(sector, 0.0) + weight / total
+
+    benchmark = inp.benchmark_sector_weights or {}
+    rows: list[SectorExposure] = []
+    for sector, port_weight in aggregated.items():
+        bench = benchmark.get(sector)
+        active = (port_weight - bench) if bench is not None else None
+        flagged = False
+        reason: str | None = None
+        if active is not None and abs(active) > inp.deviation_threshold:
+            flagged = True
+            direction = "overweight" if active > 0 else "underweight"
+            reason = f"{direction} by {active*100:+.1f}pp vs benchmark"
+        rows.append(
+            SectorExposure(
+                sector=sector,
+                portfolio_weight=port_weight,
+                benchmark_weight=bench,
+                active_weight=active,
+                flagged=flagged,
+                reason=reason,
+            )
+        )
+    rows.sort(key=lambda r: -(r.active_weight if r.active_weight is not None else r.portfolio_weight))
+
+    top_over: str | None = None
+    top_under: str | None = None
+    if benchmark:
+        active_sorted = [r for r in rows if r.active_weight is not None]
+        if active_sorted:
+            top_over = max(active_sorted, key=lambda r: r.active_weight or 0.0).sector
+            top_under = min(active_sorted, key=lambda r: r.active_weight or 0.0).sector
+
+    interpretation = (
+        f"{len(rows)} sectors. "
+        + (
+            f"Top overweight: {top_over}; top underweight: {top_under}."
+            if benchmark
+            else "No benchmark provided — absolute exposures only."
+        )
+        + f" Threshold={inp.deviation_threshold*100:.1f}pp."
+    )
+    return SectorExposureOutput(
+        exposures=rows,
+        top_overweight_sector=top_over,
+        top_underweight_sector=top_under,
+        interpretation=interpretation,
+    )
 
 
 def sector_exposure_tool_schema() -> dict:
