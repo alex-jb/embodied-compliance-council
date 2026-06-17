@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { load_voices_for_vertical } from "./loader.js";
 import { MockProvider } from "./mock-provider.js";
 import { AnthropicProvider } from "./anthropic-provider.js";
+import { GLMProvider } from "./glm-provider.js";
 import { deliberate } from "./runner.js";
 import type { Provider } from "./types.js";
 import type { Vertical } from "@embodied-compliance/spatial-gating-protocol";
@@ -12,7 +13,7 @@ interface Args {
   vertical: Vertical;
   action: string;
   voices_dir: string;
-  provider: "mock" | "anthropic";
+  provider: "mock" | "anthropic" | "glm";
 }
 
 function parse_args(argv: string[]): Args {
@@ -22,7 +23,7 @@ function parse_args(argv: string[]): Args {
     if (a === "--vertical") args.vertical = argv[++i] as Vertical;
     else if (a === "--action") args.action = argv[++i];
     else if (a === "--voices-dir") args.voices_dir = argv[++i];
-    else if (a === "--provider") args.provider = argv[++i] as "mock" | "anthropic";
+    else if (a === "--provider") args.provider = argv[++i] as "mock" | "anthropic" | "glm";
     else if (a === "--help" || a === "-h") {
       print_help();
       process.exit(0);
@@ -57,7 +58,14 @@ Examples:
 async function main(): Promise<void> {
   const args = parse_args(process.argv.slice(2));
   const voices = load_voices_for_vertical(args.voices_dir, args.vertical);
-  const provider: Provider = args.provider === "anthropic" ? new AnthropicProvider() : new MockProvider();
+  let provider: Provider;
+  if (args.provider === "anthropic") {
+    provider = new AnthropicProvider();
+  } else if (args.provider === "glm") {
+    provider = new GLMProvider();
+  } else {
+    provider = new MockProvider();
+  }
   const output = await deliberate(voices, provider, {
     vertical: args.vertical,
     proposed_action: args.action,

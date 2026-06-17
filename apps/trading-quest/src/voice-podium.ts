@@ -19,6 +19,8 @@ export function build_podium(podium: VoicePodium, tint: number): THREE.Group {
   );
   halo.rotation.x = Math.PI / 2;
   halo.position.y = 0.92;
+  halo.userData.is_halo = true;
+  halo.userData.original_color = tint;
   group.add(halo);
 
   const label_canvas = document.createElement("canvas");

@@ -149,6 +149,32 @@ async function fire_synthetic_decision(gesture: Gesture = "none") {
   const entry = await append_entry(chain, decision);
   chain.push(entry);
   audit_panel.render(chain);
+  pulse_podiums(decision.aggregate_verdict);
+}
+
+function pulse_podiums(verdict: "approve" | "decline" | "escalate" | string): void {
+  const color = verdict === "approve" ? 0x4ade80 : verdict === "decline" ? 0xf87171 : 0xfbbf24;
+  scene.traverse((obj) => {
+    if (obj.userData?.is_halo) {
+      const start = performance.now();
+      const original_color = obj.userData.original_color ?? (obj as any).material?.color?.getHex?.() ?? 0xffffff;
+      obj.userData.original_color = original_color;
+      const animate = () => {
+        const t = (performance.now() - start) / 600;
+        if (t >= 1) {
+          (obj as any).material?.color?.setHex(original_color);
+          (obj as any).scale?.set(1, 1, 1);
+          return;
+        }
+        const pulse = Math.sin(t * Math.PI);
+        (obj as any).material?.color?.setHex(color);
+        const s = 1 + pulse * 0.35;
+        (obj as any).scale?.set(s, s, s);
+        requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+    }
+  });
 }
 
 window.addEventListener("keydown", (e) => {
