@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Loredana Carmen Levitchi (lead)" />
+  <meta name="author" content="Alex Xiaoyu Ji" />
+  <title>ECC v3.1</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="-" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ECC v3.1</h1>
+<p class="author">Loredana Carmen Levitchi (lead)</p>
+<p class="author">Alex Xiaoyu Ji</p>
+<p class="date">2026-06-17 (revision 3.1)</p>
+</header>
+<h1 id="embodied-compliance-council">Embodied Compliance Council</h1>
+<h2
+id="cross-persona-cross-device-spatial-workspace-for-regulated-banking">Cross-Persona,
+Cross-Device Spatial Workspace for Regulated Banking</h2>
+<p><strong>Course</strong>: AI for Extended Reality (Dr. Harry NGO) —
+Final Project Proposal <strong>Date</strong>: 2026-06-17 (revision 3.1,
+supersedes v3 of same day evening) <strong>Status</strong>: Draft for
+Loredana review. v3.1 is the academic-deliverable framing of the
+canonical Shadow product proposal
+(<code>~/Desktop/shadow-mentor/docs/shadow-product-proposal.pdf</code>).
+Same engine, same architecture, scoped for academic submission and IEEE
+paper.</p>
+<hr />
+<h2 id="what-changed-since-v3">1. What changed since v3</h2>
+<p>Version 3 introduced the <strong>three-tier presentation
+surface</strong> (Desktop / G2 / Quest 3S) and was Even-G2-vs-Quest-3S
+framed. Subsequent same-evening research and the founder’s product
+instinct converged on a sharper four-device architecture with five
+persona packs:</p>
+<ul>
+<li><strong>Quest 3S is dropped.</strong> Apple paused Vision Pro
+overhaul October 2025; episodic immersive headsets are not the form
+factor regulators or analysts will wear in 2026-2028. We replace it with
+<strong>XReal Air 2 Ultra</strong> (80g, sunglass-form-factor 6DoF
+spatial AR, $699) for the JARVIS-style episodic deep-review
+surface.</li>
+<li><strong>A fifth persona is added — Quant / Data Scientist</strong>
+(banking model risk and fraud / AML data engineering) — and a new
+academic app <code>quant-quest</code> is added to the codebase to
+evaluate the immersive analytics literature (Kraus 2022 CGF) for
+high-dimensional financial anomaly detection. This is what unlocks the
+empirically defensible portion of the IEEE paper.</li>
+<li><strong>The hero is no longer “five voices debating in
+WebXR.”</strong> The hero is <strong>cross-persona, cross-device audit
+and recall</strong> — five role-specific AI mentor + compliance voices,
+four device clients matched to scenario, one cryptographic hash chain
+that spans them all. The five-voice council remains; it is plumbing, not
+the visual hero.</li>
+</ul>
+<p>These changes are not a scope expansion. They are a
+<em>narrowing</em> of the academic contribution to a more empirically
+defensible spatial-memory + cross-device audit-trail finding, with a
+wider applicability through the persona axis.</p>
+<hr />
+<h2 id="problem">2. Problem</h2>
+<p>Microsoft HoloLens was discontinued in 2024-10. Apple Vision Pro
+adoption stalled and Apple itself reallocated engineering toward smart
+glasses on 2025-10-01. The 2026 daily-wear form factor is lightweight
+smart glasses (Even Realities G2, Brilliant Labs Frame, Meta Ray-Ban
+Display) and spatial-AR sunglass-form-factor devices (XReal Air 2
+Ultra). Immersive headsets are reserved for episodic deep-review
+sessions.</p>
+<p>Five regulated banking roles converge on the same three unsolved
+problems:</p>
+<ol type="1">
+<li><p><strong>Explainability and audit gap in AI-driven
+decisioning.</strong> EU AI Act Annex III classifies credit-scoring AI
+as “high-risk,” mandating Article 14 human oversight and tamper-evident
+audit logs effective 2026-08-01. The U.S. ECOA requires lenders to
+provide specific, model-traceable adverse-action explanations; post-2024
+CFPB guidance explicitly states template phrases are non-compliant.
+Current 2D loan-decisioning dashboards make this auditable but slow,
+opaque to the customer, and prone to compliance gaps. The OCC 2024 CRO
+survey reports examiners have become measurably more demanding on
+contemporaneous evidence of contrarian challenge.</p></li>
+<li><p><strong>Multi-agent risk gap.</strong> AI-native finance
+platforms (Orallexa: a 5-persona deliberation council with
+Brier-calibrated audit) score 9/10 on Decision Intelligence but only
+5/10 on Risk Controls and lack the institutional risk primitives (VaR,
+Expected Shortfall, factor exposures, concentration limits, sector
+exposure) that banks require. The institutional risk layer cannot be
+surfaced quickly enough at decision moments in current 2D
+interfaces.</p></li>
+<li><p><strong>High-dimensional anomaly visualization gap.</strong>
+Quants and data scientists detect SR 11-7 model drift via Population
+Stability Index but cannot attribute drift to specific feature ×
+sub-population × contribution geometry. AML graph analytics produces
+traceable transaction paths but 2D force-directed layouts collapse to
+hairballs above ~500 nodes. Kraus et al. (Computer Graphics Forum 41(1),
+2022) document that immersive 3D scatter outperforms 2D for outlier
+identification, distance perception, and embodied navigation of large
+graphs — but the literature lacks any peer-reviewed RCT in the
+<em>financial</em> anomaly-detection domain specifically. ECC’s
+<code>quant-quest</code> evaluation fills this gap.</p></li>
+</ol>
+<hr />
+<h2 id="proposed-system-cross-persona-cross-device-architecture">3.
+Proposed System — Cross-Persona, Cross-Device Architecture</h2>
+<p>Five persona packs, four device clients, one engine. The same JSON
+verdict is rendered at the right cognitive density for the moment.</p>
+<h3 id="the-five-persona-packs">3.1 The five persona packs</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Persona</th>
+<th>What they do</th>
+<th>Best device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🛡 <strong>Compliance officer / loan reviewer</strong></td>
+<td>Loan origination review, OCC exam prep, ECOA adverse action notices,
+AML</td>
+<td>Even G2 (customer-facing safe) + Desktop fallback</td>
+</tr>
+<tr>
+<td>🧮 <strong>Quant / Data Scientist</strong></td>
+<td>SR 11-7 model drift monitoring, fraud anomaly detection, AML graph
+analytics, counterparty network analysis</td>
+<td><strong>XReal Air 2 Ultra (JARVIS mode)</strong> + Desktop</td>
+</tr>
+<tr>
+<td>💻 <strong>Software Engineer</strong></td>
+<td>Risk system integration, internal LLM platform, Fair Lending PII
+boundary</td>
+<td>Desktop primary + Brilliant Frame</td>
+</tr>
+<tr>
+<td>📈 <strong>Trader / Portfolio Manager</strong></td>
+<td>Position sizing, correlation regime, tail risk, factor exposure</td>
+<td><strong>XReal Air 2 Ultra (JARVIS mode)</strong> + Desktop</td>
+</tr>
+<tr>
+<td>💼 <strong>Wealth Advisor</strong></td>
+<td>HNW client meetings, portfolio review, Reg BI suitability</td>
+<td>Even G2 (customer meetings) + Desktop</td>
+</tr>
+</tbody>
+</table>
+<p>Each persona pack supplies role-specific system prompts, jargon,
+regulations, and historical Brier audits to the shared
+<code>council-runner</code> backend. The same backend emits the same
+JSON verdict; the persona pack shapes which voices speak and what they
+say.</p>
+<h3 id="the-four-device-clients">3.2 The four device clients</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Client</th>
+<th>Hardware</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🖥 <strong>Desktop macOS app</strong></td>
+<td>Native ScreenCaptureKit + Accessibility API + AppKit overlay</td>
+<td>Universal fallback. All personas. Where heavy review work actually
+gets done.</td>
+</tr>
+<tr>
+<td>👓 <strong>Even Realities G2</strong> ($599, no camera, monocular
+green HUD, bone conduction)</td>
+<td>Even SDK + Conversate</td>
+<td>Customer-facing primary for Compliance + Wealth Advisor. No-camera
+positioning is the moat for 2-party consent state law and customer
+trust.</td>
+</tr>
+<tr>
+<td>🕶 <strong>Brilliant Labs Frame</strong> ($349, color mini HUD,
+camera, open SDK)</td>
+<td>Brilliant Open SDK</td>
+<td>Internal-doc reading and runbook walk-through. Best for Software
+Engineer. Local-only processing of camera frames.</td>
+</tr>
+<tr>
+<td>✨ <strong>XReal Air 2 Ultra</strong> ($699, 6DoF spatial AR,
+sunglass-form-factor 80g, camera + bone conduction)</td>
+<td>NRSDK + WebXR + Three.js</td>
+<td><strong>JARVIS mode.</strong> Three floating spatial panels anchored
+in the analyst’s real workspace: (a) 3D risk surface / fraud
+feature-space UMAP / drift attribution timeline; (b) bias constellation
+(already shipped 2026-06-17, commit <code>3e8b24c</code>); (c)
+counterparty / AML 3D force-directed network walk-through.
+Bone-conduction council whispers. Only the user sees the panels through
+the AR glasses. Best for Quant + Trader at own desk with no customer
+present.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-five-academic-apps-one-per-persona-sharing-the-backend">3.3
+The five academic apps (one per persona, sharing the backend)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>App</th>
+<th>Persona</th>
+<th>What it demos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>banking-quest</code></td>
+<td>🛡 Compliance</td>
+<td>Loan officer + Even G2 + in-lens contrarian during customer review;
+desktop deep-review with full 5-voice fan-out</td>
+</tr>
+<tr>
+<td><code>trading-quest</code></td>
+<td>📈 Trader</td>
+<td>Trader + XReal Air 2 Ultra JARVIS mode: 3D risk surface, bias
+constellation, correlation regime; desktop deep-review</td>
+</tr>
+<tr>
+<td><strong><code>quant-quest</code> (new in v3.1)</strong></td>
+<td>🧮 Quant / Data Scientist</td>
+<td><strong>New academic app.</strong> Quant + XReal JARVIS: walk
+through fraud feature-space UMAP manifold, AML transaction-network
+5K-node graph, model drift attribution. <strong>This is the academic
+evaluation arm that fills the Kraus 2022 financial-anomaly
+gap.</strong></td>
+</tr>
+<tr>
+<td><code>advisor-quest</code></td>
+<td>💼 Wealth Advisor</td>
+<td>HNW client meeting + Even G2 + in-lens Reg BI suitability
+prompt</td>
+</tr>
+<tr>
+<td>(no academic app)</td>
+<td>💻 Engineer</td>
+<td>Engineering pack ships as part of the commercial product (Shadow)
+but is not an academic deliverable.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tier-spanning-audit-protocol">3.4 Tier-spanning audit
+protocol</h3>
+<p>Every decision across all four device clients × five persona packs
+produces a tamper-evident audit record using WebCrypto SubtleCrypto
+SHA-256 hash chains. Each record captures: timestamp, decision ID, the
+council’s challenge text, the user’s verbal or gestural response, gaze
+dwell time on each surfaced piece of evidence (XReal and Quest 3S
+inside-out eye tracking), and the screen or scene context.</p>
+<p>The hash chain is exportable in formats acceptable to OCC, CFPB,
+FINRA, SEC, and EU AI Act Article 14 audit submissions. All generation
+is on-device; no cloud dependency.</p>
+<p>This composition is the <strong>novel contribution</strong> (Section
+4).</p>
+<hr />
+<h2 id="novel-contribution">4. Novel Contribution</h2>
+<p>This is the first system to treat <strong>spatial gating as a
+cryptographic audit primitive across multiple form factors and multiple
+regulated banking personas</strong>. The contribution is not a 3D
+dashboard, not a multi-agent debate framework alone, not a compliance
+log, and not a risk module — it is the composition of all four into a
+single tamper-evident protocol that maps cleanly onto Fair Lending Act,
+ECOA, EU AI Act Article 14, and Reg BI, <em>and that spans daily desktop
+use, ambient smart-glasses use, and episodic spatial AR review</em>.</p>
+<p>A search of IEEE VR, IEEE ISMAR, ACM CHI, ACM ICAIF, and arXiv
+(2026-06-17) returns no published work framing spatial UI as a
+<em>regulatory primitive</em> in banking, no prior cross-form-factor
+compliance audit chain, no prior empirical evaluation of immersive 3D
+for <em>financial</em> anomaly detection, and no prior cross-persona
+spatial workspace.</p>
+<p>Secondary contributions:</p>
+<ul>
+<li><strong>Orallexa risk upgrade.</strong> Loredana’s institutional
+risk primitives are lifted into Orallexa as typed tool calls, lifting
+the platform from 5/10 to an expected 8-9/10 on the JPMorgan
+pressure-test Risk Controls dimension.</li>
+<li><strong>Empirical XR-wedge finding
+(<code>quant-quest</code>).</strong> Our user study (Section 6) is
+positioned to be the first peer-reviewed RCT on immersive 3D for
+<em>financial</em> anomaly detection specifically. Kraus 2022 covers
+general 3D scatter; the financial-specific gap is unfilled. This is a
+defensible research contribution worth a stand-alone paper.</li>
+<li><strong>Generalization claim.</strong> The same spatial-gating
+protocol generalizes across loan origination, wealth advisory, and quant
+model-risk review with a voice-roster swap and device-fit
+reconfiguration, demonstrating that embodied compliance is a
+transferable primitive across regulated banking workflows.</li>
+</ul>
+<hr />
+<h2 id="demo-plan">5. Demo Plan</h2>
+<ul>
+<li><strong>Primary hardware</strong>: <strong>XReal Air 2
+Ultra</strong> ($699 each, two units recommended), <strong>Even
+Realities G2</strong> ($599, one unit minimum for the in-lens contrarian
+demo), and an Apple Silicon MacBook for desktop demo.</li>
+<li><strong>Live web demo</strong>:
+<code>hello-finance-xr.vercel.app</code> (URL to be finalized) hosts the
+WebXR + NRSDK build and the desktop-mock browser demo
+(<code>~/Desktop/shadow-mentor/index.html</code>, runnable today).</li>
+<li><strong>Optional</strong>: Brilliant Frame ($349) for the Software
+Engineer pack demo, if time permits.</li>
+</ul>
+<p>A <strong>10-minute live demo</strong> will cover:</p>
+<ol type="1">
+<li><strong>🛡 Compliance + Even G2 (90s)</strong> — loan officer reviews
+a file in Excel; in-lens green contrarian whispers ECOA-safe denial
+reason; bone-conduction audio transcribed to hash chain.</li>
+<li><strong>🧮 Quant + XReal Air 2 Ultra JARVIS mode (3 min)</strong> —
+quant’s model PSI tripped; quant walks around floating UMAP manifold to
+find misclassified cluster; floats AML 5K-node graph to inspect
+suspicious sub-network; drift attribution timeline floats next to
+laptop.</li>
+<li><strong>📈 Trader + XReal Air 2 Ultra JARVIS mode (2 min)</strong> —
+trader walks around 3D risk surface to find concentration cliff; bias
+constellation reveals over-approval pattern; correlation surface deforms
+across 2007→2009 regime.</li>
+<li><strong>💼 Advisor + Even G2 (90s)</strong> — HNW client meeting;
+in-lens Reg BI checklist; bone-conduction whisper suggests IPS gap;
+client never sees the device working.</li>
+<li><strong>Cross-tier audit export (90s)</strong> — cryptographic
+audit-trail export shown alongside example OCC, EU AI Act Article 14,
+and FINRA Reg BI audit submission formats. Gaze-dwell timeline
+replayed.</li>
+</ol>
+<p>The demo ends with the offline-resilience proof: WiFi disconnected
+mid-demo, the on-device council continues running on the Apple
+Foundation Model framework.</p>
+<hr />
+<h2 id="evaluation-methodology">6. Evaluation Methodology</h2>
+<p>Preserved from Loredana’s IEEE draft:</p>
+<ul>
+<li>Perception: detection mAP &gt; 0.80, segmentation IoU &gt; 0.70,
+relative depth error reported</li>
+<li>Latency: frame rate &gt; 60 FPS, motion-to-photon &lt; 22 ms, agent
+tool-call latency end-to-end &lt; 1.5 s</li>
+<li>Gesture and voice: hand-gesture success &gt; 0.85, voice-intent
+accuracy &gt; 0.90</li>
+<li>User experience: SUS &gt; 75, NASA-TLX cognitive load reported</li>
+</ul>
+<p>Novel additions for v3.1:</p>
+<ul>
+<li><strong>Compliance integrity</strong>: 100% of decisions across all
+four device clients produce a tamper-evident audit trail, verified by
+hash-chain replay; OCC, CFPB, FINRA, SEC, and EU AI Act audit-export
+formats validated.</li>
+<li><strong>Brier calibration stability</strong>: 5-voice Brier(XR mode)
+≈ Brier(2D control), <em>p</em> &lt; 0.05.</li>
+<li><strong>Recall lift over 2D control</strong> — between-subjects
+7-day recall test of specific decision details. Target: at least +15%
+recall accuracy for XReal Air 2 Ultra spatial mode vs 2D dashboard
+control, the lower bound of Krokos UMD 2019 effect size.</li>
+<li><strong><code>quant-quest</code> financial-anomaly RCT</strong>: 30
+financial-engineering grad students assigned to either XReal JARVIS mode
+(fraud UMAP walk-through) or 2D Jupyter notebook control. Outcome:
+time-to-correct-attribution of injected drift in a controlled
+fraud-dataset experiment. Target: XReal arm completes attribution at
+least 30% faster with at least 15% higher accuracy. <strong>This is the
+first peer-reviewed RCT on immersive 3D for financial anomaly
+detection.</strong></li>
+<li><strong>Gaze-dwell audit fidelity</strong> — eye-tracking logs
+verify users actually viewed surfaced compliance evidence. Target: 95%
+of decisions show &gt; 3 seconds of gaze dwell on the relevant voice’s
+evidence card.</li>
+<li><strong>Risk-primitive accuracy</strong>: Orallexa risk module VaR
+and Expected Shortfall validated against historical-simulation baseline;
+factor exposures validated against Fama-French 5-factor model.</li>
+<li><strong>Cross-tier decision-time friction</strong>: Desktop overlay
+must add &lt; 5 seconds vs unaided review; XReal JARVIS mode may add up
+to +20% vs 2D control given the higher-stakes scope.</li>
+</ul>
+<p>A <strong>40-subject within-subjects user study</strong> for
+Compliance + Advisor personas, plus the 30-subject
+<code>quant-quest</code> between-subjects study, IRB approval requested
+by Loredana through Yeshiva.</p>
+<hr />
+<h2 id="existing-assets-de-risks-the-proposal">7. Existing Assets
+(De-Risks the Proposal)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Owner</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-page HoloFinanceXR IEEE technical report draft</td>
+<td>Loredana</td>
+<td>Drafted, ready for revisions</td>
+</tr>
+<tr>
+<td>120-page BR document (VaR, correlation, factor analysis, agent
+integration)</td>
+<td>Loredana</td>
+<td>Drafted</td>
+</tr>
+<tr>
+<td>Embodied Compliance Council monorepo (8 packages, 41 tests green,
+v0.1.0 tag)</td>
+<td>Alex</td>
+<td>Live, github.com/alex-jb/embodied-compliance-council</td>
+</tr>
+<tr>
+<td><strong>Bias Constellation (Phase 1 XR artifact, JARVIS mode
+candidate)</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17 (commit <code>3e8b24c</code>)</td>
+</tr>
+<tr>
+<td><strong>Perception Layer (YOLO-World + SAM2 + Depth Anything
+V2)</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17 (7/7 tests green)</td>
+</tr>
+<tr>
+<td><strong>Three-user empirical pain research memos (2)</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17</td>
+</tr>
+<tr>
+<td><strong>Shadow canonical product proposal v1.0</strong></td>
+<td>Alex</td>
+<td>Shipped 2026-06-17,
+<code>~/Desktop/shadow-mentor/docs/shadow-product-proposal.pdf</code></td>
+</tr>
+<tr>
+<td>Orallexa multi-agent system (5 voices, production cron,
+Brier-audited)</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>council-diff</code> v0.4.2 (OSS Brier audit engine, MIT, npm +
+skills.sh)</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>council-for-slack-2026</code> (production proof of 5-voice +
+Brier audit in Slack)</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td>Phase 4 EU AI Act + ECOA evaluation design doc</td>
+<td>Alex</td>
+<td>Live</td>
+</tr>
+<tr>
+<td>Three.js + WebXR + NRSDK baseline</td>
+<td>W3C + XReal</td>
+<td>Standardized</td>
+</tr>
+<tr>
+<td>Anthropic Claude Opus 4.7 (1M context)</td>
+<td>Anthropic</td>
+<td>Released 2026-04-16</td>
+</tr>
+<tr>
+<td>Apple Foundation Model framework</td>
+<td>Apple</td>
+<td>Released with iOS 18 / macOS 15</td>
+</tr>
+<tr>
+<td>MediaPipe Hands, WebCrypto SubtleCrypto API</td>
+<td>Google / W3C</td>
+<td>Standardized</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="division-of-labor">8. Division of Labor</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-page proposal, IEEE paper revisions, presentation delivery</td>
+<td>Loredana</td>
+</tr>
+<tr>
+<td>Native macOS desktop overlay (all personas)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td><code>quant-quest</code> WebXR + XReal NRSDK build (fraud UMAP + AML
+graph + drift attribution)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td><code>banking-quest</code> WebXR scene + Even G2 in-lens contrarian
+integration</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td><code>trading-quest</code> WebXR + XReal NRSDK build (risk surface +
+bias constellation + correlation regime)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td><code>advisor-quest</code> Even G2 in-lens Reg BI prompt</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Orallexa risk module integration</td>
+<td>Alex with Loredana code review</td>
+</tr>
+<tr>
+<td>5-voice council per persona (banking-quest, trading-quest,
+quant-quest, advisor-quest)</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Cryptographic audit-trail protocol + OCC / CFPB / FINRA / EU AI Act
+export formats</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>Eye-tracking gaze-dwell logger</td>
+<td>Alex</td>
+</tr>
+<tr>
+<td>User study design (40-subj + 30-subj <code>quant-quest</code>), IRB
+application, NASA-TLX administration</td>
+<td>Loredana</td>
+</tr>
+<tr>
+<td>Customer-facing scenario design</td>
+<td>Loredana</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="multi-deliverable-mapping">9. Multi-Deliverable Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Form</th>
+<th>Class / Venue</th>
+<th>Estimated Due</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-page proposal v3.1 (this document)</td>
+<td>Markdown + PDF</td>
+<td>Dr. Harry NGO (AI for Extended Reality)</td>
+<td>2026-06-17</td>
+</tr>
+<tr>
+<td>Server-client multi-agent prototype + 5-page report</td>
+<td>Code + report</td>
+<td>Dr. Ashikur Nobel</td>
+<td>TBD (course-set)</td>
+</tr>
+<tr>
+<td>Capstone thesis (40-80 pages)</td>
+<td>Full literature review, methodology, evaluation, future work</td>
+<td>Capstone advisor (Prof. Yang)</td>
+<td>2026-12</td>
+</tr>
+<tr>
+<td>Conference paper #1 — cross-persona embodied compliance</td>
+<td>8 pages double-column</td>
+<td><strong>ACM ICAIF 2027</strong> (estimated deadline 2026-09-15);
+backup IEEE BigData 2026</td>
+<td>2026-09</td>
+</tr>
+<tr>
+<td>Conference paper #2 — first RCT on immersive 3D for financial
+anomaly detection (<code>quant-quest</code>)</td>
+<td>8 pages double-column</td>
+<td><strong>IEEE VR 2027</strong> or <strong>IEEE VIS 2027</strong></td>
+<td>2026-12</td>
+</tr>
+<tr>
+<td>Commercial pilot — Shadow Banking (Phase 3)</td>
+<td>Native macOS app, mid-tier wealth-mgmt or boutique IB beachhead</td>
+<td>Independent, post-thesis</td>
+<td>2027-01+</td>
+</tr>
+</tbody>
+</table>
+<p>The codebase is shared; each deliverable provides a distinct framing
+and evaluation depth.</p>
+<hr />
+<h2 id="commercialization-path-shadow-banking">10. Commercialization
+Path — Shadow Banking</h2>
+<p>The cross-form-factor + cross-persona research insight unlocked today
+identifies a defensible commercial wedge: <strong>Shadow
+Banking</strong>, a Desktop + Even G2 + Brilliant Frame + XReal Air 2
+Ultra mentor and compliance council product, sold as an enterprise
+license to mid-tier ($5B-$50B AUM) US banks.</p>
+<p>Pricing: base $120K/year + persona packs $1,500-$2,400/seat/year.
+Sample mid-tier bank deployment $982K ACV. 3-year SOM $4.9M ARR across 5
+mid-tier banks. Not part of the academic deliverable; it is the
+post-thesis commercialization path that the ECC research enables.
+Documented in
+<code>~/Desktop/shadow-mentor/docs/shadow-product-proposal.pdf</code>
+(canonical product proposal v1.0).</p>
+<hr />
+<h2 id="alternative-scopes-for-loredanas-review">11. Alternative Scopes
+(For Loredana’s Review)</h2>
+<p><strong>Option A — Cross-persona, cross-device Embodied Compliance
+Council (this document, recommended).</strong> Strongest novelty (first
+cross-persona spatial regulatory audit primitive + first RCT on
+immersive 3D for financial anomaly detection), strongest
+multi-deliverable fit, two conference paper outputs, and the strongest
+commercialization path.</p>
+<p><strong>Option B — Three-tier ECC (proposal-v3).</strong> Drops the
+quant-quest fifth-persona evaluation arm and the second conference
+paper. Faster to ship; weaker because the financial-anomaly RCT is the
+strongest empirically defensible research claim.</p>
+<p><strong>Option C — Quest-3S-only Embodied Compliance Council
+(proposal-v2).</strong> Drops desktop and G2 and XReal. Faster to ship;
+weakest IEEE paper because the cross-form-factor finding is the central
+research claim.</p>
+<p><strong>Option D — Generic Banking Workspace (Loredana’s original
+HoloFinanceXR draft).</strong> Lower risk, but loses the multi-agent
+integration, the cryptographic audit chain, the EU AI Act regulatory
+hook, and the empirical wedge research.</p>
+<p><strong>Option E — Quant Trading Pre-Trade Compliance.</strong>
+Pivots to institutional hedge-fund pre-trade compliance. Loses
+Loredana’s banking framing and the broader Fair Lending audience.</p>
+<p>We recommend <strong>Option A</strong>.</p>
+<hr />
+<h2
+id="references-representative-full-bibliography-in-the-ieee-paper">References
+(representative; full bibliography in the IEEE paper)</h2>
+<ul>
+<li>L. C. Levitchi, <em>HoloFinanceXR: An AI-Powered Banking XR
+Workspace</em>, Final Project Technical Report (draft, 2026)</li>
+<li>L. C. Levitchi, <em>Aura Alexa Enhancement with Risk Analytics:
+Business Requirements</em>, 120-page draft (2026)</li>
+<li>A. X. Ji, <em>Shadow — One Engine, Three Smart-Glass Clients, Five
+Persona Packs</em>, canonical product proposal v1.0 (2026)</li>
+<li>E. Krokos, C. Plaisant, A. Varshney, “Virtual Memory Palaces:
+Immersion Aids Recall,” <em>Virtual Reality</em> 23, 2019</li>
+<li>M. Kraus et al., “Immersive Analytics with Abstract 3D
+Visualizations: A Survey,” <em>Computer Graphics Forum</em>
+41(1):201-229, 2022</li>
+<li>A. Kirillov et al., <em>Segment Anything</em>, ICCV 2023</li>
+<li>W3C Immersive Web Working Group, <em>WebXR Device API</em>, 2026
+candidate recommendation</li>
+<li>XReal NRSDK 3.0 Technical Reference, XReal Inc., 2025</li>
+<li>12 U.S.C. § 1691 — Equal Credit Opportunity Act (ECOA)</li>
+<li>European Union, <em>Artificial Intelligence Act</em> (Regulation
+2024/1689), Article 14 — Human Oversight, effective 2026-08-01</li>
+<li>Federal Reserve SR 11-7, Guidance on Model Risk Management,
+2011</li>
+<li>OCC Bulletin 2025-16, Disparate Impact and Fair Lending AI
+Guidance</li>
+<li>ATD State of the Industry Report 2024</li>
+<li>Bloomberg Law, “AI Smart Glasses Workplace Compliance Risks,”
+2025</li>
+<li>Even Realities G2 Smart Glasses Technical Specifications, 2025</li>
+<li>Anthropic, <em>Claude Opus 4.7 with 1M Context Window</em>,
+2026-04-16 release notes</li>
+<li>Apple Machine Learning Research, <em>Third Generation Apple
+Foundation Models</em>, 2025</li>
+</ul>
+<hr />
+<p><em>End of proposal v3.1. Loredana, please mark any preferred changes
+(Option A through E), confirm hardware purchase or borrowing plan for
+Even G2 + XReal Air 2 Ultra, and return; Alex will revise the technical
+sections you flag and produce the Dr. Nobel-class companion document by
+the same deadline. The Orallexa risk-module merge work can begin in
+parallel as soon as you share the relevant Python files from your
+120-page BR document.</em></p>
+</body>
+</html>
