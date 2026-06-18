@@ -10,7 +10,32 @@ The format loosely follows [Keep a Changelog](https://keepachangelog.com/) but i
 
 ## [Unreleased]
 
-Next planned: actual Vercel deploy of council-runner (one-shot `vercel deploy --prod` per `DEPLOY.md`); banking-side risk-math integration from Loredana Levitchi (Phase B); council-diff v0.5 TREX execution-before-review pattern spec implementation; Orallexa XR vs banking-quest scope resolution after Loredana / Dr. NGO reply.
+Next planned: actual Vercel deploy of council-runner (one-shot `vercel deploy --prod` per `DEPLOY.md`); banking-side risk-math integration from Loredana Levitchi (Phase B); council-diff v0.5 TREX execution-before-review pattern spec implementation; IEEE VR 2027 paper data collection (abstract 2026-08-24, paper 2026-08-31, see `papers/ieee-vr-2027-shadow-rct.md`); ICAIF 2026 Milan paper (2026-08-02 deadline).
+
+---
+
+## 2026-06-17 late evening / 2026-06-18 early morning — Shadow canonical product pivot + ECC v3.1 + IEEE VR 2027 paper skeleton
+
+### Added
+
+- **`docs/research/2026-06-17-three-users-fifteen-pains-xr-edge.md`** — Deep agent research memo documenting 15 specific workflow pains across banking compliance officer + quant / data engineer + trader, ranked by whether XR genuinely solves them (6 of 15 win; 9 of 15, 2D is fine). 30+ sourced citations. Identifies Even G2 + XReal Air 2 Ultra as the wedge devices, not Quest 3S ([`af02f1d`](https://github.com/alex-jb/embodied-compliance-council/commit/af02f1d)).
+- **`apps/trading-quest/src/bias-constellation.ts`** — 3D scatter scene element rendering verdict-chain history as a bounded constellation (radius 2.4m). Per-point scatter encodes inverse council agreement; recency drives radius + height. Toggleable, hidden by default per Kraus 2022 CGF bounded-zone advisory ([`3e8b24c`](https://github.com/alex-jb/embodied-compliance-council/commit/3e8b24c)).
+- **`docs/dr-ngo-final/proposal-v3.1.{md,pdf,html}`** — ECC academic proposal v3.1 aligned with the canonical Shadow product proposal. Drops Quest 3S, adds XReal Air 2 Ultra spatial AR, adds new `quant-quest` academic app (5th persona = Quant / Data Scientist). PDF is 392KB ready to send Loredana / Dr. NGO. The new quant-quest app opens the first peer-reviewed RCT on immersive 3D for *financial* anomaly detection — fills the Kraus 2022 financial-specific gap ([`9c1a630`](https://github.com/alex-jb/embodied-compliance-council/commit/9c1a630)).
+- **`papers/ieee-vr-2027-shadow-rct.md`** — IEEE VR 2027 paper v0.1 skeleton (~3,700 words). Abstract complete, Section 1 (Introduction) with 3 contributions articulated, Section 2 (Related Work) 5 subsections, Section 3 (Methodology) with pre-registered H1-H4 hypotheses + N=30 between-subjects design + 7-item cryptographic audit-trail completeness rubric + pre-registered statistical analysis plan. Sections 4-6 skeletons for camera-ready ([`353f28f`](https://github.com/alex-jb/embodied-compliance-council/commit/353f28f)).
+- **`docs/dr-ngo-final/lora-flow-immersive-reply-2026-06-18-shadow-aligned.md`** — Rewrite of Sunday Flow reply incorporating Shadow canonical framing + ECC v3.1. Two questions to Jason Marsh preserved; broader product reframe articulated; IEEE VR 2027 paper invitation to Loredana as co-author included ([`353f28f`](https://github.com/alex-jb/embodied-compliance-council/commit/353f28f)).
+- **`docs/dr-ngo-final/dr-ngo-katz-rfp-pi-ask-email-2026-06-18-v2.md`** — Rewrite of Katz PI ask with material upgrade: two papers (ICAIF Aug 2 + IEEE VR Aug 24) instead of one. Strengthens publication-path + external-funding-potential evaluation criteria. Includes Shadow canonical proposal as commercialization-path context ([`353f28f`](https://github.com/alex-jb/embodied-compliance-council/commit/353f28f)).
+- **`docs/research/2026-06-17-three-users-fifteen-pains-xr-edge.md`** + earlier **`docs/research/2026-06-17-xr-vs-2d-empirical-memo.md`** + **`docs/architecture-decision-flow-immersive-2026-06-17.md`** — three research memos triggering the late-evening pivot.
+
+### Changed
+
+- **`docs/2026-06-18-morning-kickoff.md`** — prepended Section 0 directing Alex to read the Shadow canonical proposal v1.0 + ECC v3.1 PDF before sending any morning emails ([`8f8a1c2`](https://github.com/alex-jb/embodied-compliance-council/commit/8f8a1c2)).
+- **`README.md`** — tests badge bumped 33 → 41 passing; release badge added linking to v0.1.0 tag.
+
+### Decisions and research verdicts (non-code)
+
+- **Quest 3S permanently dropped** as primary academic / commercial device. Replaced with XReal Air 2 Ultra (sunglass-form-factor 6DoF spatial AR, $699). Decision driver: Apple paused Vision Pro overhaul 2025-10-01 to reallocate to smart glasses; immersive headsets are not 2026-2028 daily-wear form factor for regulated finance.
+- **Council debate is no longer the hero** in any external communication. Verbal contrarian + spatial memory + gaze-as-non-cumbersome-override = the hero. Council is plumbing.
+- **Shadow canonical product proposal v1.0** at `~/Desktop/shadow-mentor/docs/shadow-product-proposal.pdf` is the single source of truth for product framing going forward. ECC proposal v3.1 is the academic-deliverable version of the same architecture.
 
 ---
 
