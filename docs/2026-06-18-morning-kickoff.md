@@ -2,6 +2,28 @@
 
 **Purpose:** every action below is hands-only. Each one is small (under 5 minutes). The infrastructure to support them is already shipped. Work through this list in order.
 
+> **🔥 IMPORTANT — read this BEFORE doing anything else:**
+> **`~/Desktop/shadow-mentor/docs/shadow-product-proposal.pdf`** (canonical v1.0, shipped 23:30 NY 2026-06-17)
+>
+> This document supersedes all prior product framing. Shadow = one engine + 4 device clients + 5 persona packs. ECC stays academic and feeds Shadow. Reading this lockstep aligns the morning emails (Lora + Dr. NGO + Yang) with the canonical narrative; otherwise the emails go out using stale v2 framing.
+>
+> Companion: `proposal-v3.1.pdf` (academic version, aligned).
+
+---
+
+## 0. Read the canonical Shadow proposal (5 min)
+
+```bash
+open ~/Desktop/shadow-mentor/docs/shadow-product-proposal.pdf
+open ~/Desktop/embodied-compliance-council/docs/dr-ngo-final/proposal-v3.1.pdf
+```
+
+Decide before sending any email:
+- (A) Send Lora the v3.1 academic proposal + a 2-sentence note that the canonical Shadow proposal is the commercial wedge
+- (B) Send Lora the canonical Shadow proposal v1.0 directly and let her see the full picture, then v3.1 as the academic carve-out
+
+Recommend (B). She's a co-author; she should see the full canonical narrative.
+
 ---
 
 ## 1. Read what arrived overnight (1 min)
