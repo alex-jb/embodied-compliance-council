@@ -17,6 +17,8 @@ A research monorepo producing the open-source AI infrastructure for regulated de
 
 **Status:** active research codebase. Capstone project (trading vertical) advised by Prof. Michael Yang. Banking vertical with Dr. NGO and external risk-math collaborator Loredana C. Levitchi. Submission targets: ICAIF 2027 (trading), IEEE journal (banking).
 
+**Adversarial robustness:** see [`docs/threat-model.md`](docs/threat-model.md) for the per-attack catalog + mitigation status. First entry (MosaicLeaks multi-turn information leak, ServiceNow+HuggingFace 2026-06) filed 2026-06-21 via issue [#1](https://github.com/alex-jb/embodied-compliance-council/issues/1).
+
 **License:** MIT.
 
 ---
