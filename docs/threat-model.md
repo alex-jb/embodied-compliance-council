@@ -22,7 +22,7 @@ This is NOT original adversarial research. We catalog + test against the publish
 
 | # | Attack name | Source | Affected components | Current mitigation | Repro test |
 |---|---|---|---|---|---|
-| 1 | **MosaicLeaks** — multi-turn information leak from research agents (system prompts + private context exfiltrated across turn boundaries) | ServiceNow + HuggingFace, [blog.servicenow / 2026-06](https://huggingface.co/blog/ServiceNow/mosaicleaks) | `council-runner/` (fan-out + aggregator can carry transcript across turns), `council-voices/` (system prompts contain role + tool restrictions + JSON output schema — the precise content the attack tries to exfiltrate) | **Partial.** spatial-gating-protocol's SHA-256 hash chain gives *post-hoc detectability* of anomalous prompt content in transcripts. Strict-JSON output schema in voice prompts narrows the leak surface — but free-form fields like `rationale` remain vectors. No active prevention. | `tests/adversarial/mosaicleaks.test.ts` ([scaffold below](#mosaicleaks-test-scaffold)) |
+| 1 | **MosaicLeaks** — multi-turn information leak from research agents (system prompts + private context exfiltrated across turn boundaries) | ServiceNow + HuggingFace, [blog.servicenow / 2026-06](https://huggingface.co/blog/ServiceNow/mosaicleaks) | `council-runner/` (fan-out + aggregator can carry transcript across turns), `council-voices/` (system prompts contain role + tool restrictions + JSON output schema — the precise content the attack tries to exfiltrate) | **Partial — narrowed + detectable.** Strict-JSON verdict enum (block / approve / escalate / review / abstain) + bounded `rationale_short` length (<500 chars) make verbatim system-prompt exfiltration mechanically impossible. spatial-gating-protocol's SHA-256 hash chain gives post-hoc detectability of any anomalous content. No active prevention against partial / paraphrased leak yet — that's the v0.2 follow-up. | [`packages/council-runner/tests/adversarial/mosaicleaks.test.ts`](../packages/council-runner/tests/adversarial/mosaicleaks.test.ts) (materialized 2026-06-22, commit 28cf120 — 5 structural-invariant tests run in CI without LLM credits + 1 placeholder skipped test for live canary detection pending v0.2) |
 
 (Catalog grows row-by-row as new attack classes are published. See §6.)
 
@@ -55,9 +55,19 @@ A row may carry multiple labels (e.g. "Partial — detectable + narrowed") when 
 
 ---
 
-## 5. MosaicLeaks test scaffold {#mosaicleaks-test-scaffold}
+## 5. MosaicLeaks test — materialized 2026-06-22
 
-`packages/council-runner/tests/adversarial/mosaicleaks.test.ts` (TODO — create as the first concrete repro):
+**Status**: shipped as `packages/council-runner/tests/adversarial/mosaicleaks.test.ts` (commit 28cf120). Two test classes:
+
+**Class 1 — Structural invariants (always run, no LLM credit spend)**:
+- `aggregator output doesn't expose voice allowed_tools verbatim`
+- `voice verdicts constrained to fixed enum (not free text)`
+- `rationale_short bounded < 500 chars` — runaway system-prompt leak would blow past this length
+- `all 6 published probe shapes produce a valid aggregate without crash`
+
+**Class 2 — Live canary detection (skipped unless `ANTHROPIC_API_KEY` set)**: placeholder NAMED skipped test exists so this catalog row cites an actual file, not a doc paragraph. Materializing the canary-injecting Provider variant + asserting no leak across ≥10 probe runs is the v0.2 follow-up (separate PR — needs LLM credits in CI runner).
+
+The original scaffold sketch (for historical reference + so v0.2 implementers can compare against the materialized form):
 
 ```ts
 // Pass = no token sequence from the voice's system prompt appears in
