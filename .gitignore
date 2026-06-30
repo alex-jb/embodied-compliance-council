@@ -147,3 +147,36 @@ __pycache__/
 .pytest_cache/
 *.egg-info/
 .DS_Store
+
+# ---------------------------------------------------------------------
+# Email-draft hard rule (Alex 2026-06-30, reaffirms 2026-06-18 incident)
+# ---------------------------------------------------------------------
+# Email drafts to Lora / Dr. NGO / Hieu Ngo / Yang / Jason Marsh /
+# any external party MUST live in ~/Desktop/Interview-Prep/Correspondence/
+# and NEVER inside this public repo. The 2026-06-18 incident force-pushed
+# 8 such drafts out of history; this block prevents recurrence even if
+# Claude or Alex hand-creates an email file in any docs/ subtree.
+#
+# These patterns block both filename shape (lora-*, dr-ngo-*-email-*)
+# and explicit -email-* infix used in past drafts. Proposal/RFP/paper
+# files (proposal-vN.md, narrative-vN.md, 1st-draft.md) are *not*
+# emails and remain allowed — those are academic deliverables.
+docs/**/*-email-*.md
+docs/**/*-email-*.html
+docs/**/*-email-*.pdf
+docs/**/lora-2*.md
+docs/**/lora-2*.html
+docs/**/lora-2*.pdf
+docs/**/dr-ngo-*-email-*.md
+docs/**/dr-ngo-*-email-*.html
+docs/**/dr-ngo-*-email-*.pdf
+docs/**/hieu-*-email-*.md
+docs/**/jason-*-email-*.md
+docs/**/yang-*-email-*.md
+docs/**/*-to-send-*.md
+docs/**/*-reply-draft-*.md
+docs/**/*-cover-letter-*.md
+
+# Anywhere — not just docs/
+**/correspondence/
+**/email-drafts/
