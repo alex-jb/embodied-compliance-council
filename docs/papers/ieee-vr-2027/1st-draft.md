@@ -111,11 +111,17 @@ We use 3D Gaussian Splatting (Kerbl *et al.* 2023) [10] rather than NeRF (Milden
 
 The ReAct pattern (Yao *et al.* 2023) [14] underlies each of the five voices in our council. Karpathy's 2026 public writing on "council of LLM judges + verifiable evaluation" [15] articulates the design principle we follow — that orchestration of multiple LLM personas under a verifiable evaluation rubric is more defensible than single-LLM oracle decisions. HuggingFace's "Is it agentic enough?" structural evaluation framework (June 2026) [16] is the basis for our deterministic structural rubric (Section 6).
 
-### 3.5 Regulated-banking AI and the EU AI Act
+### 3.5 Auditable-artifacts as the emerging trust primitive for regulated-AI
+
+Concurrent with our work, Anthropic launched **Claude Science** (2026-06-30) [20], an AI workbench for scientific research explicitly positioning *"every output carries an auditable history of how it was made, so you can validate and reproduce the results"* [20] as the core primitive for AI deployment in high-risk scientific domains. Claude Science's artifact shape — model identity + exact code and environment + plain-language description + full message history — parallels the reproducibility layer our system returns inline with every `/api/deliberate` response (Section 4.5, `buildReproducibilityArtifact`), with the key difference that our system extends the pattern across a four-layer governance stratification of source attribution (institutional risk framework, product-line policy, benchmark calibration parameter, regulatory framework) rather than treating source citations as a single flat field.
+
+The convergence — one of the frontier AI labs publicly betting on auditable-artifacts as *the* primitive for AI in high-risk science on the same timeline our system generalizes the analogous pattern for high-risk regulated banking — suggests that reproducibility-first, provenance-separated artifact contracts are emerging as a shared industry-wide trust primitive for regulated-AI deployment, not a Shadow-only architectural bet. This paper contributes the specific formalization for banking loan origination under EU AI Act Article 14 and Federal Reserve SR 26-2; we hypothesize the same pattern generalizes to satcom spectrum compliance under ITU, clinical decision support under HIPAA + FDA SaMD, and legal discovery review under FRCP Rule 26 — cross-domain formalization we flag as future work in Section 8.
+
+### 3.6 Regulated-banking AI and the EU AI Act
 
 EU AI Act Annex III lists credit-scoring as high-risk; Article 14 establishes the human oversight + understanding requirements [2]. CFPB Bulletin 2024-09 establishes adverse-action explanation requirements under ECOA [17]. Federal Reserve SR 26-2 (the 2026 successor to SR 11-7) restates effective-challenge requirements for model risk management [3]. The OCC's 2024 Chief Risk Officer Survey identifies model-risk-management capacity as the top resource constraint among supervised institutions [18].
 
-### 3.6 Source-separation governance (named contribution prior art)
+### 3.7 Source-separation governance (named contribution prior art)
 
 Levitchi (2026) [19] formulates the BRD vs. Addenda Source Separation Principle in the Orallexa Shadow Mode A Technical Report Section 2 and accompanying Traceability Matrix. **To our knowledge, this paper is the first peer-reviewed treatment of BRD-vs-Addenda source separation as a procurement-defensibility governance pattern for regulated-AI deployment.**
 
@@ -320,6 +326,8 @@ This work was supported in part by the Yeshiva University Katz School *AI for Ex
 [18] Office of the Comptroller of the Currency (2024). *Chief Risk Officer Survey.*
 
 [19] Levitchi, L. C. (2026). *Orallexa Shadow Mode A: Complete BRD + Addenda + Implementation Package.* Aura Alexa BRD + Addenda A/B/C + Risk Appetite Note + Technical Report (Sections 1-8) + Traceability Matrix. Yeshiva University internal distribution 2026-06-19; license MIT.
+
+[20] Anthropic (2026). *Claude Science: an AI workbench for scientists.* Product launch 2026-06-30. https://www.anthropic.com/news/claude-science-ai-workbench. Positions auditable-artifacts (model + code + environment + full message history) as the core primitive for AI deployment in high-risk scientific domains; available in beta for Claude Pro, Max, Team, and Enterprise users on macOS and Linux.
 
 ---
 
