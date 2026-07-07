@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ICAIF 2026 Milan — Paper Skeleton v0.1</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ICAIF 2026 Milan — Paper Skeleton v0.1</h1>
+</header>
+<h1
+id="calibration-discipline-as-the-audit-primitive-for-ai-assisted-trade-decisions">Calibration
+Discipline as the Audit Primitive for AI-Assisted Trade Decisions</h1>
+<h2 id="structure-skeleton-for-yang-review">Structure (skeleton for Yang
+review)</h2>
+<p>Each section below is a placeholder with (a) the argument the section
+defends and (b) the specific artifact / dataset / equation the section
+will cite. Prose to be written in the final draft; skeleton makes the
+argument structure legible before we spend the 27 days writing.</p>
+<hr />
+<h2 id="abstract-180-words-camera-ready-target">Abstract (~180 words,
+camera-ready target)</h2>
+<p>The literature on AI-assisted trade decisions treats accuracy
+(Sharpe, information ratio, hit rate) as the primary evaluation metric.
+We argue that accuracy is a necessary but insufficient guarantee for
+regulated deployment: an accurate but miscalibrated model is a
+compliance liability under SR 26-2, Reg BI, and MiFID II best-execution
+rules, because <em>the model’s confidence in each decision cannot be
+defended to a regulator</em>. We propose <strong>calibration discipline
+as the audit primitive</strong> — a framework where every trade decision
+emits (i) a probability estimate with a known Brier-score reliability
+curve, (ii) a cryptographic attestation binding that probability to the
+model version and the reason-code dictionary that produced it, and (iii)
+a governance-layer citation chain that maps every threshold used in the
+decision to its correct source document (institutional risk framework,
+product-line policy, benchmark calibration parameter, or regulatory
+framework). We instantiate the framework in two open-source reference
+implementations: <strong>Orallexa</strong> (Python quantitative trading
+agent, MIT) and <strong>Shadow</strong> (Node.js banking compliance
+council, MIT, 668 tests). We evaluate on a 200-decision held-out test
+set and report calibration decomposition (reliability, resolution,
+uncertainty) per persona, without prompt-tuning, alongside accuracy.</p>
+<hr />
+<h2 id="introduction-1.5-pages">1. Introduction (~1.5 pages)</h2>
+<p><strong>Argument to defend:</strong> the AI-in-finance literature has
+consolidated on accuracy metrics that are silently <em>conditional on
+the model’s confidence being well-calibrated</em>. Section 1 argues that
+(a) that assumption is empirically false for LLM-based trade decisioning
+at production scale, (b) miscalibration is not neutral — it is a
+regulatory liability under SR 26-2, Reg BI, and MiFID II best-execution,
+and (c) calibration discipline can be treated as a first-class
+engineering primitive (measurable, testable, deterministically bound to
+the model version via cryptographic attestation) rather than a post-hoc
+analytical exercise.</p>
+<p><strong>Concrete anchor to cite:</strong> the CFPB Circular 2022-03
+requirement that adverse-action denials cite the specific policy source.
+Every LLM-based compliance decision that emits a template phrase is a
+Reg B violation regardless of accuracy. Calibration extends this
+argument: an LLM-based trade decision that emits a probability with no
+verifiable calibration curve is a best-execution violation regardless of
+accuracy.</p>
+<p><strong>Contribution list:</strong></p>
+<ol type="1">
+<li>Framing: calibration discipline as first-class audit primitive</li>
+<li>Cryptographic attestation binding: Ed25519 (RFC 8032) with
+dictionary-hash + hash-chain</li>
+<li>Cross-persona framework: 5 personas (trading) + 5 personas (banking)
+with Brier decomposition per persona</li>
+<li>Two reference implementations (Orallexa Python, Shadow Node.js) both
+MIT + public</li>
+<li>Governance-layer citation chain: the BRD vs. Addenda Source
+Separation Principle from Levitchi (2026)</li>
+<li>200-decision empirical calibration decomposition</li>
+</ol>
+<hr />
+<h2 id="related-work-1-page">2. Related Work (~1 page)</h2>
+<p><strong>Threads to review:</strong></p>
+<ul>
+<li><strong>LLM calibration in general:</strong> Guo, Pleiss, Sun,
+Weinberger (2017) — temperature scaling. Kadavath et al. (2022,
+Anthropic) — LLM self-calibration second-order probability. Zhao, Naik,
+Peng, Cotterell (2021) — calibration under distribution shift.</li>
+<li><strong>LLM trade decisions:</strong> Yang et al. (2024) FinGPT. Wu
+et al. (2023) BloombergGPT. Wang et al. (2023) Alpaca / DeepFinance.
+Highlight the accuracy-only evaluation posture.</li>
+<li><strong>Reflexion / self-improvement:</strong> Shinn et al. (2023)
+NeurIPS. Sakana Darwin-Gödel Machine (2025). Reference the
+<em>measurement-first</em> prior we require before any self-modification
+is merged.</li>
+<li><strong>Cryptographic provenance for AI systems:</strong> Attar et
+al. (2025) — model watermarking. RFC 8032 (Ed25519). NIST FIPS 186-5
+(2023). No prior work binds attestation to the <em>reason-code
+dictionary</em> rather than the model weights, which is our
+contribution’s specific gap.</li>
+<li><strong>Regulatory literature:</strong> SR 26-2 (Fed 2026), Reg BI
+(SEC 2019), MiFID II best-execution (ESMA), CFPB Bulletin 2024-09, Kraus
+2022 (immersive statistics for outlier detection — auxiliary).</li>
+</ul>
+<p><strong>Argument this section makes:</strong> the calibration +
+attestation + governance-layer separation combination is novel. Any
+single one has prior art; the <em>product</em> is what we are
+introducing.</p>
+<hr />
+<h2 id="framework-2-pages">3. Framework (~2 pages)</h2>
+<h3 id="persona-typing-and-probability-emission">3.1 Persona typing and
+probability emission</h3>
+<p>Each persona (Bull, Bear, Judge, Critic, Polyseer in the Orallexa
+trading roster; Credit Fundamentals, Risk Officer, Fair Lending
+Compliance, Customer Advocate, Macro Contrarian, AML/KYC opt-in in the
+Shadow banking roster) emits a <em>signed confidence value</em> on every
+decision, drawn from a bounded probability space with explicit
+calibration curve refit on a monthly schedule.</p>
+<p>Signed confidence contract: - <strong>Range:</strong> [0, 1] with
+explicit lower and upper bounds enforced in the runtime schema -
+<strong>Calibration:</strong> post-hoc temperature scaling per Guo et
+al. (2017), refit monthly on realized outcomes -
+<strong>Provenance:</strong> signed via Ed25519 attestation over the
+concatenated (model_version, reason_code_dictionary_hash,
+decision_features) payload</p>
+<h3 id="brier-decomposition-per-persona">3.2 Brier decomposition per
+persona</h3>
+<p>For a binary event with predicted probability p and observed outcome
+o ∈ {0, 1}, the Brier score is BS = (p − o)². Over N predictions, mean
+Brier decomposes into:</p>
+<pre><code>BS̄ = REL − RES + UNC</code></pre>
+<p>where REL (reliability) is the average squared distance between
+forecasted probability and empirical frequency binned by k, RES
+(resolution) is how far each bin’s empirical frequency deviates from the
+overall base rate, and UNC (uncertainty) is the base-rate randomness.
+The decomposition is <em>orthogonal</em> per persona: a persona with
+high REL is <em>unreliable</em> independent of RES; a persona with low
+RES is <em>uninformative</em> independent of REL.</p>
+<p>The trading roster (Bull, Bear, Judge, Critic, Polyseer) emits
+probability estimates on 5 event classes: - P(price up ≥ 1% in next H
+hours) - P(volatility regime = high) - P(macro headwind = present) -
+P(technical breakout = valid) - P(consensus = confident)</p>
+<p>The banking roster emits probability estimates on 4 event classes: -
+P(applicant meets credit floor) - P(loan fits portfolio VaR) -
+P(compliance clean) - P(borrower explanation meets Bulletin 2024-09)</p>
+<h3 id="cryptographic-attestation-binding">3.3 Cryptographic attestation
+binding</h3>
+<p>Every emitted probability is bound to (model_version,
+reason_code_dictionary_hash, decision_features) via Ed25519 signature.
+Any post-hoc dictionary edit — a jailbroken model rewriting a compliance
+rationale, a well-meaning contributor “cleaning up” prompt language —
+breaks verification at the auditor’s SIEM ingestion boundary.</p>
+<p>Attestation schema:</p>
+<pre><code>{
+  &quot;model_version&quot;: &quot;shadow-mentor@v1.5.11&quot;,
+  &quot;reason_code_dictionary_hash&quot;: &quot;sha256:...&quot;,
+  &quot;decision_features&quot;: {...},
+  &quot;probability_by_persona&quot;: {...},
+  &quot;previous_hash&quot;: &quot;sha256:...&quot;,  // hash chain for tamper detection
+  &quot;signature&quot;: &quot;&lt;Ed25519 signature bytes&gt;&quot;
+}</code></pre>
+<p>Hash chain verification (v1.5.10) walks the chain in O(N) and detects
+any reordering, insertion, truncation, or edit-cascade with a single
+Ed25519 verification operation over concatenated hashes.</p>
+<h3 id="governance-layer-citation-chain-section-from-levitchi-2026">3.4
+Governance-layer citation chain (Section from Levitchi 2026)</h3>
+<p>Every threshold used in a decision cites its correct governance
+layer: 1. Institutional risk framework (BRD) 2. Product-line policy
+(Addenda A/B/C) 3. Benchmark calibration parameter (Risk Appetite Note)
+4. Regulatory framework (CFPB / ECOA / Reg B / SR 26-2 / GDPR Art. 22 /
+Schufa / Reg BI / MiFID II)</p>
+<p>Examiner audit chains discount mis-attributed citations across the
+entire response. Section 3.4 defends the source-separation principle as
+<em>a necessary condition for a Reg B examiner to accept the citation
+chain</em>. The Traceability Matrix from Section 2 of the IEEE VR 2027
+companion paper is the reference table.</p>
+<hr />
+<h2 id="reference-implementations-1.5-pages">4. Reference
+implementations (~1.5 pages)</h2>
+<h3 id="orallexa-python-mit">4.1 Orallexa (Python, MIT)</h3>
+<p>Repository:
+<code>github.com/alex-jb/orallexa-ai-trading-agent</code>. 5-voice
+LangGraph debate (Bull / Bear / Judge + Critic + Polyseer). 745+ tests.
+Currently paper-trading; walk-forward validation gate is enforced
+(Sharpe ≥ 0.5 required for real-money deployment; last cycle failed with
+mean OOS Sharpe of −3.08, triggering the pre-registered <code>iff</code>
+gate that held the $300 real-money deployment). The Polyseer voice
+implements a Critic pattern auditing the other four for same-source
+bias, missing base rates, unverifiable claims, and confirmation
+drift.</p>
+<h3 id="shadow-node.js-mit">4.2 Shadow (Node.js, MIT)</h3>
+<p>Repository: <code>github.com/alex-jb/shadow-mentor</code>. 5-voice
+compliance council (Credit / Risk / Fair Lending / Customer Advocate /
+Macro Contrarian) plus AML/KYC opt-in voice. 668 tests. 7 MCP tools
+shipped for Claude Desktop / Cursor / OpenCode integration.
+Deterministic verdict resolver (block &gt; escalate &gt; approve).
+Ed25519 attestation with dictionary_hash binding + hash-chain integrity
++ cross-language Node ↔︎ Python verifier.</p>
+<h3 id="cross-implementation-invariants">4.3 Cross-implementation
+invariants</h3>
+<p>Both implementations share: - HITL-by-code-level-invariant (a
+Reflexion <code>iff</code> gate that halts self-modification on any
+measurement regression) - Dual-tier LLM cost routing (Sonnet 4.6 + Haiku
+4.5) with 10× cost reduction verified on 50 blind reviews - Structured
+JSON outputs at every persona boundary - Hash-chain audit trail -
+Provider diversity primitive against Free-MAD hallucination
+amplification (arXiv 2509.11035)</p>
+<hr />
+<h2 id="evaluation-1.5-pages">5. Evaluation (~1.5 pages)</h2>
+<h3 id="datasets">5.1 Datasets</h3>
+<ul>
+<li><strong>Trading (Orallexa):</strong> 90-day paper-trading decision
+log (2026-04-13 → 2026-07-13) — approximately 200 decisions across the
+SpaceX equity basket (RKLB, ASTS, LUNR, BKSY, PL, RDW, LMT, LIN). Real
+market ground truth at T + 24h.</li>
+<li><strong>Banking (Shadow):</strong> 200-decision synthetic loan test
+set (labeled ground truth per Addenda A/B/C) — the 4-case verdict
+lattice (approve / escalate / block × 2 block paths) extended to 200
+synthetic loans with realistic feature distributions.</li>
+</ul>
+<h3 id="metrics">5.2 Metrics</h3>
+<ul>
+<li><strong>Accuracy metrics:</strong> Sharpe, information ratio, hit
+rate (trading); verdict correctness on gold-labeled loans, F1 by verdict
+class, per-persona agreement (banking).</li>
+<li><strong>Calibration metrics:</strong> Brier score, reliability
+(REL), resolution (RES), uncertainty (UNC), reliability curve, expected
+calibration error (ECE) per persona, expected calibration error
+post-recalibration.</li>
+<li><strong>Attestation metrics:</strong> verification success rate at
+auditor SIEM ingestion boundary, hash-chain integrity check pass rate,
+dictionary-hash binding regression detection rate on
+deliberately-tampered inputs.</li>
+<li><strong>Governance-layer metrics:</strong> citation-chain
+misattribution rate on 200 test decisions, measured against the
+Traceability Matrix.</li>
+</ul>
+<h3
+id="results-to-be-filled-from-live-data-2026-07-13-to-2026-07-30">5.3
+Results (to be filled from live data 2026-07-13 to 2026-07-30)</h3>
+<p>Preliminary numbers as of 2026-07-06: - Orallexa: paper-trading
+Sharpe negative on latest walk-forward, correctly held real-money
+deployment via iff gate. Brier score per persona to be measured on the
+90-day log. - Shadow: Agentic Capability Benchmark 87 ± 3 (n=6). Ed25519
+attestation verification 100% success rate on the 4-case verdict
+lattice. Zero regressions across 668 tests.</p>
+<p>Final results block reserved for the camera-ready draft — the
+200-decision empirical decomposition is the empirical anchor of the
+paper and must be regenerated with the final model + dictionary versions
+the day before submission.</p>
+<h3 id="ablations">5.4 Ablations</h3>
+<ul>
+<li>With and without post-hoc temperature scaling per persona</li>
+<li>With and without hash-chain (single attestation only)</li>
+<li>With and without dictionary-hash binding (attestation is
+model-only)</li>
+<li>With and without governance-layer citation chain (Reg B examiner
+audit simulation)</li>
+</ul>
+<hr />
+<h2 id="discussion-1-page">6. Discussion (~1 page)</h2>
+<h3 id="what-breaks-if-you-skip-the-attestation-layer">6.1 What breaks
+if you skip the attestation layer</h3>
+<p>A jailbroken model can rewrite a compliance rationale in a way that
+passes accuracy tests (F1 on the verdict class) but fails at auditor
+SIEM because the reason-code dictionary hash no longer matches. Section
+6.1 walks through 3 specific attack surfaces with Shadow’s
+<code>test/aml-kyc-adversarial.test.js</code> (32 tests) as the
+empirical reference.</p>
+<h3 id="what-breaks-if-you-skip-governance-layer-separation">6.2 What
+breaks if you skip governance-layer separation</h3>
+<p>Examiner audit chains discount the entire citation chain when any
+single threshold is mis-attributed. Section 6.2 argues that source
+separation is a <em>necessary</em> not merely helpful condition for
+procurement-grade regulated deployment.</p>
+<h3 id="limitations">6.3 Limitations</h3>
+<ul>
+<li>Small sample sizes at the persona level (n &lt; 100 as of
+2026-07-06)</li>
+<li>Synthetic banking test set — real bank data is unavailable to any
+solo research team, and this is not going to change in the paper’s
+lifetime</li>
+<li>Post-hoc temperature scaling assumes stationary calibration curves;
+production deployment would need drift-detection monitoring</li>
+<li>Provider diversity primitive assumes no shared infrastructure
+between LLM providers, which is empirically false in some deployment
+scenarios (many banks use both Anthropic and OpenAI running on the same
+cloud provider)</li>
+</ul>
+<h3 id="future-work">6.4 Future work</h3>
+<ul>
+<li>Cross-workspace calibration leaderboard (extension of the
+Council-for-Slack 2026-07-13 hackathon submission)</li>
+<li>Real-time recalibration under adversarial drift</li>
+<li>Integration with FINRA CAT audit trail export format</li>
+<li>AMD MI300X vLLM portable backend (already scaffolded in council-diff
+provider abstraction)</li>
+</ul>
+<hr />
+<h2 id="conclusion-0.5-page">7. Conclusion (~0.5 page)</h2>
+<p>Calibration discipline as first-class audit primitive is the framing
+that lets solo research teams and mid-tier banks with modest engineering
+budgets ship production-grade AI trade / compliance decisioning that can
+be defended to a regulator. The framework is measurable, testable,
+cryptographically bound, and open-sourced in two reference
+implementations that anyone can clone and stress-test. Milan 2026
+attendees interested in the trading, banking, or spatial-XR applications
+of this framework are invited to open issues on either repository.</p>
+<hr />
+<h2
+id="skeleton-reviewer-notes-for-alex-before-sending-to-yang">Skeleton
+reviewer notes (for Alex before sending to Yang)</h2>
+<p><strong>Before sending to Yang:</strong></p>
+<ol type="1">
+<li>Rewrite Section 1’s Introduction with Prof. Yang’s typical
+Introduction structure (start with the trading-side story, then broaden
+to compliance). Yang is a quant researcher; his lens is Sharpe first,
+calibration second.</li>
+<li>Section 5.3 (Results) is <em>the</em> section a reviewer will read.
+It has to be fully populated by 2026-07-30 at the latest, giving 3 days
+to iterate before submission. Blocker: Alex needs 200 clean labeled
+trading decisions from the paper-trading log by 2026-07-30.</li>
+<li>Section 3.4 (Governance-layer citation chain) leans on Lora’s
+authority. Confirm she’s willing to co-author the banking side of
+Section 3.4 or agrees the paragraph in its current form; if she wants to
+reframe, iterate.</li>
+<li>Verify with Yang that the trading-side dataset in Section 5.1
+(90-day paper-trading log) is actually publishable — the paper-trading
+platform’s terms may restrict decision-log publication.</li>
+</ol>
+<p><strong>Skeleton timeline for Alex:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Date</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2026-07-07</strong></td>
+<td>Send skeleton to Yang + Lora for review</td>
+</tr>
+<tr>
+<td><strong>2026-07-15</strong></td>
+<td>Sections 1, 2, 3 fully written (introduction + related work +
+framework)</td>
+</tr>
+<tr>
+<td><strong>2026-07-22</strong></td>
+<td>Sections 4, 6, 7 fully written (implementations + discussion +
+conclusion)</td>
+</tr>
+<tr>
+<td><strong>2026-07-30</strong></td>
+<td>Section 5 (evaluation) written with actual n=200 numbers</td>
+</tr>
+<tr>
+<td><strong>2026-08-01</strong></td>
+<td>Full paper review by Yang + Lora, iterate</td>
+</tr>
+<tr>
+<td><strong>2026-08-02 EOD</strong></td>
+<td>Submit</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="references-partial-to-be-expanded">References (partial — to be
+expanded)</h2>
+<ul>
+<li>Brier, G. W. (1950). Verification of forecasts expressed in terms of
+probability. <em>Monthly Weather Review</em>, 78(1), 1-3.</li>
+<li>Murphy, A. H. (1973). A new vector partition of the probability
+score. <em>Journal of Applied Meteorology</em>, 12(4), 595-600.</li>
+<li>Guo, C., Pleiss, G., Sun, Y., &amp; Weinberger, K. Q. (2017). On
+calibration of modern neural networks. <em>ICML 2017.</em></li>
+<li>Kadavath, S., et al. (2022). Language models (mostly) know what they
+know. Anthropic technical report.</li>
+<li>Shinn, N., et al. (2023). Reflexion: Language agents with verbal
+reinforcement learning. <em>NeurIPS 2023.</em></li>
+<li>Federal Reserve. (2026). <em>SR 26-2 Supervisory Guidance on Model
+Risk Management.</em> Board of Governors of the Federal Reserve
+System.</li>
+<li>CFPB. (2024). <em>Bulletin 2024-09: Model traceability for
+adverse-action explanations.</em> Consumer Financial Protection
+Bureau.</li>
+<li>ECJ. (2023). <em>Case C-634/21 (SCHUFA Holding).</em> Court of
+Justice of the European Union.</li>
+<li>RFC 8032. (2017). <em>Edwards-Curve Digital Signature Algorithm
+(EdDSA).</em> Internet Engineering Task Force.</li>
+<li>Levitchi, L. C. (2026). <em>BRD vs. Addenda Source Separation
+Principle: A governance pattern for AI-driven regulated decisions.</em>
+Yeshiva Univ. + William Paterson Univ. Technical Report (in
+preparation).</li>
+</ul>
+<hr />
+<h2 id="license">License</h2>
+<p>MIT. Draft is public artifact of the
+<code>embodied-compliance-council</code> repository. Please cite
+<code>docs/icaif-2026/paper-skeleton.md</code> (this file) when adapting
+the framework for your own paper.</p>
+</body>
+</html>
