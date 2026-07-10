@@ -162,13 +162,40 @@ Both implementations share:
 - **Governance-layer metrics:** citation-chain misattribution rate on 200 test decisions, measured against the Traceability Matrix.
 - **Sibling accuracy (Section 4.2):** Sharpe, information ratio, hit rate (Orallexa), reported briefly to establish portability.
 
-### 5.3 Results (to be filled from live data 2026-07-13 to 2026-07-30)
+### 5.3 Results
 
-Preliminary numbers as of 2026-07-10:
-- Shadow: Agentic Capability Benchmark 87 ± 3 (n=6). Ed25519 attestation verification 100% success rate on the 4-case verdict lattice. Zero regressions across 707+ tests. Per-persona Brier decomposition to be filled from the 200-decision labeled set.
-- Orallexa: paper-trading Sharpe negative on latest walk-forward, correctly held real-money deployment via `iff` gate. Cited as portability evidence that the calibration-discipline framework catches its own miscalibration when applied outside the primary vertical.
+**Deterministic-layer baseline (n=800 decisions across 4 independent seeds, 2026-07-10).** Bundle at `shadow-mentor:benchmark/icaif-2026/`, reproducible via `node scripts/icaif-batch-eval.mjs --n 200 --seed <s>` and `node scripts/icaif-variance-summary.mjs`.
 
-Final results block reserved for the camera-ready draft. The 200-decision empirical decomposition is the empirical anchor of the paper and must be regenerated with the final model + dictionary versions the day before submission.
+- Verdict accuracy: **1.000 ± 0.000** across seeds 20260710/20260711/20260712/20260713.
+  Constant-by-construction: gold labels derive from the same `LOAN_DEFAULTS` thresholds the council uses. This is the **internal-consistency verification** of the deterministic verdict layer, not a novel accuracy claim.
+- Per-voice agreement with final verdict (mean ± std across 4 seeds):
+
+  | Voice | Agreement | Interpretation |
+  |---|---:|---|
+  | Credit Fundamentals | 0.964 ± 0.017 | Dominant vote per Levitchi 2026-06-19 policy (FICO/DTI gate drives most block/escalate outcomes) |
+  | Macro Contrarian | 0.714 ± 0.029 | Sector-driven independence; escalates CRE regardless of other signals |
+  | Risk Officer | 0.652 ± 0.040 | VaR-driven independence; sometimes escalates on VaR while other voices approve |
+  | Fair Lending | 0.644 ± 0.054 | Flag-driven independence; blocks on flag regardless of other signals |
+  | Customer Advocate | 0.619 ± 0.049 | AA-quality-driven independence; escalates when adverse-action list needs review |
+
+  The tight std < 0.06 on per-voice agreement across independent seeds shows the persona-diversity pattern is a stable framework property, not an artifact of any single class-mixture draw.
+
+- Adverse-action code coverage (mean count per n=200 seed): AA02 (DTI) ~59, AA01 (FICO) ~28, AA03 (LTV) ~17, AA04 (VaR) ~7, AA05 (Fair Lending) ~2. Signed reason-code dictionary check passed on 800/800 decisions.
+
+- Shadow Agentic Capability Benchmark on LLM-rationale layer: 87 ± 3 (n=6, from 2026-06-18 sweep; distinct from the deterministic Section 5.3 baseline above).
+
+**LLM-rationale-layer results (to be filled 2026-07-24 → 2026-07-30).** Extending the eval bundle to include per-class probability emission (see schema-gap note below) and re-running against Sonnet 4.6 + Haiku 4.5. Full Brier decomposition per persona, temperature scaling per Guo et al. 2017, ECE pre/post recalibration.
+
+**Sibling implementation (Orallexa portability evidence).** Paper-trading Sharpe negative on latest walk-forward, correctly held real-money deployment via the pre-registered `iff` gate. Framework-catches-own-miscalibration example, not a positive-P&L claim.
+
+### 5.3.1 Schema gap flagged for camera-ready
+
+`confidence` values in the current Shadow output are per-persona constants (0.82 / 0.78 / 0.91 / 0.74 / 0.69). The Section 3.2 per-persona Brier decomposition requires each persona to emit `P(class) ∈ [0, 1]` per event class, not a fixed confidence in the persona's own verdict. Two options for the camera-ready draft:
+
+1. **Extend the schema** to emit `p_approve`, `p_escalate`, `p_block` per persona; refit temperature scaling per Guo et al. 2017; report REL / RES / UNC decomposition. Roughly one week of engineering + LLM-rationale wiring cost.
+2. **Reframe as weighted-verdict Brier** using the constant per-persona confidence as a persona-level weight (already shipped in `lib/confidence-weighted-verdict.js`). Cheaper. Loses the per-persona reliability-curve claim; keeps the audit-primitive claim.
+
+Yang call 2026-07-14 (Monday) agenda item.
 
 ### 5.4 Ablations
 
