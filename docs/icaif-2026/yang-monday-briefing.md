@@ -51,7 +51,7 @@ The deterministic-layer baseline is committed to `shadow-mentor:benchmark/icaif-
 
 ---
 
-## 4. Three decisions I need from you on Monday
+## 4. Four decisions I need from you on Monday
 
 ### D1 · Schema gap — Brier decomposition path
 
@@ -80,18 +80,35 @@ Current draft: Ji / Yang / Levitchi in order. Two paths:
 
 **My default:** D3a; happy to swap on your say-so.
 
+### D4 · Ablation study — do we defend "5-persona diversity has incremental value"?
+
+**The problem:** the n=2,400 baseline shows every voice has agreement-with-final std < 0.05. That is a *double-edged* result. From one angle it says "the persona-diversity pattern is a stable framework property." From the reviewer angle it invites: *if all five voices agree this reliably, what does adding voices 2 – 5 actually buy over voice 1 alone?* The paper as drafted does not answer that.
+
+Without an answer, the strongest reading of Section 5 is "Shadow's rationale layer is stable" — which is a much smaller claim than the 5-persona framing implies. A well-prepared reviewer collapses "multi-persona council" to "multi-layer rationale over a single deterministic verdict resolver," which is largely accurate but strips the paper's headline framing.
+
+**Two paths:**
+
+- **D4a. Add a 1-vs-3-vs-5-persona ablation table** (plus a 6-persona variant that adds AML/KYC). Report verdict accuracy, per-persona AA-code coverage, reason-code overlap (Jaccard), and per-loan verdict entropy for each configuration. If the 5-persona configuration produces meaningfully different / better outputs than the 1-persona baseline, the "diversity has incremental value" claim survives. If not, the paper honestly reframes as "audit primitive with rationale-layer stability" and drops "multi-perspective" from the framing.
+- **D4b. Add diversity indicators to Section 5.3 without a full ablation.** Report reason-code Jaccard overlap between persona pairs and per-loan verdict-vote entropy across all seeds. Cheaper, defends against the same reviewer question at a lower cost, but does not empirically prove incremental value.
+
+**Engineering cost:** D4a is ~1 day of work reusing the existing batch runner (`scripts/icaif-batch-eval.mjs` extends to accept a `--personas` subset flag; regenerate the n=2,400 bundle four times at ~0 cost each; write a merge script). D4b is ~2 hours (add two metrics to the summary output).
+
+**My default without your input:** D4a. The ablation is the only empirical instrument that can defend or reframe the incremental-value claim, and rebuttal season on an ICAIF reviewer round is the wrong time to run it. Doing it before submission means we either honestly show the framework works multi-voice or we honestly downshift the framing to "audit primitive." Both are shippable stories; running the ablation lets us pick.
+
+**Caveat:** low std on agreement is not the same as high overlap on rationale. It's possible that the five voices agree on the verdict but produce very different AA-code paths — that would actually rescue the diversity claim. D4a's Jaccard measure is what distinguishes those two cases. If the Jaccard is low (voices agree on outcome, disagree on why), the paper's claim is intact and the ablation just makes the case sharper.
+
 ---
 
 ## 5. Timeline to 8/2
 
 | Date | Action |
 |---|---|
-| **Mon 2026-07-14** | This call. Close D1/D2/D3. Confirm banking-primary refocus. |
+| **Mon 2026-07-14** | This call. Close D1/D2/D3/D4. Confirm banking-primary refocus. |
 | **Wed 2026-07-16** | Katz capstone demo (separate deliverable, shares the credit-decision artifact). |
 | **Sun 2026-07-20** | Sections 1, 2, 3 fully written. |
-| **Thu 2026-07-24** | If D1a: schema extension + batch runner emitting P(class) per persona shipped. |
+| **Thu 2026-07-24** | If D1a: schema extension + batch runner emitting P(class) per persona shipped. If D4a: `--personas` subset flag added to batch runner, four ablation bundles (1/3/5/6 personas × n=2,400 seeds) generated. If D4b: Jaccard + entropy indicators added to summary output. |
 | **Sun 2026-07-27** | Sections 4, 6, 7 fully written. |
-| **Wed 2026-07-30** | Section 5 populated with LLM-rationale-layer Brier decomposition on n=200 (or n=2,400 if compute allows). |
+| **Wed 2026-07-30** | Section 5 populated with LLM-rationale-layer Brier decomposition on n=200 (or n=2,400 if compute allows). If D4a chosen: ablation table populated here. |
 | **Fri 2026-08-01** | Full paper review by you + Lora. |
 | **Sat 2026-08-02 EOD** | Submit. |
 
@@ -107,4 +124,4 @@ Slack of ~24 h before the deadline is intentional. Anthropic + OpenAI credit top
 
 ---
 
-*Everything above is a working draft. Nothing is committed until you sign off on D1 / D2 / D3.*
+*Everything above is a working draft. Nothing is committed until you sign off on D1 / D2 / D3 / D4.*
