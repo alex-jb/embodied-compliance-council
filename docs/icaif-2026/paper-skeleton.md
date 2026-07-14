@@ -159,8 +159,10 @@ Both implementations share:
 
 ### 5.1 Datasets
 
-- **Primary — Shadow credit-decision test set:** 200-decision synthetic loan test set with labeled ground truth per the Addenda A/B/C framework. Verdict lattice (approve / escalate / block × 2 distinct block paths) extended to 200 synthetic loans with realistic feature distributions covering FICO, DTI, LTV, occupancy, and macro-scenario columns. Labels derived from the Risk Appetite Note thresholds documented in `LOAN_DEFAULTS`.
+- **Primary — Shadow credit-decision test set:** 200-decision synthetic loan test set with labeled ground truth per the Addenda A/B/C framework. Verdict lattice (approve / escalate / block × 2 distinct block paths) extended to 200 synthetic loans with realistic feature distributions covering FICO, DTI, LTV, occupancy, and macro-scenario columns. Labels derived from the Risk Appetite Note thresholds documented in `LOAN_DEFAULTS`. The 200-decision evaluation set is synthetic, generated from the fixture distributions committed in the anonymized artifact repository; no human-subjects data is involved and no IRB review was required.
 - **Sibling — Orallexa paper-trading log:** 90-day paper-trading decision log (2026-04-13 → 2026-07-13), approximately 200 decisions across the SpaceX equity basket (RKLB, ASTS, LUNR, BKSY, PL, RDW, LMT, LIN). Cited only in the portability evidence subsection; not the primary empirical anchor of the paper.
+
+**Model baseline discipline.** All results below use Anthropic Claude Sonnet 4.6 (`claude-sonnet-4-5-20250929`) as the persona-council backbone and Claude Haiku 4.5 for the deterministic layer. Claude Sonnet 5 shipped 2026-06-30, ~4 weeks before the 4-seed variance window used here closed on 2026-07-10; the model is documented but not used in the reported numbers, because switching backbones mid-window would invalidate the seed-variance claim. A Sonnet 5 rerun is committed to the reproducibility bundle as `benchmark/icaif-2026/sonnet-5-followup.jsonl` for readers who want the direct-comparison numbers; the framework itself is model-agnostic and any calibration deltas would apply symmetrically.
 
 ### 5.2 Metrics
 
