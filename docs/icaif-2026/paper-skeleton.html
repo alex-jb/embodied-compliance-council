@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>ICAIF 2026 Milan — Paper Skeleton v0.1</title>
+  <title>ICAIF 2026 · Paper Skeleton v0.3</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,11 +28,11 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">ICAIF 2026 Milan — Paper Skeleton v0.1</h1>
+<h1 class="title">ICAIF 2026 · Paper Skeleton v0.3</h1>
 </header>
 <h1
-id="calibration-discipline-as-the-audit-primitive-for-ai-assisted-trade-decisions">Calibration
-Discipline as the Audit Primitive for AI-Assisted Trade Decisions</h1>
+id="calibration-discipline-as-the-audit-primitive-for-ai-assisted-credit-decisions">Calibration
+Discipline as the Audit Primitive for AI-Assisted Credit Decisions</h1>
 <h2 id="structure-skeleton-for-yang-review">Structure (skeleton for Yang
 review)</h2>
 <p>Each section below is a placeholder with (a) the argument the section
@@ -42,57 +42,70 @@ argument structure legible before we spend the 27 days writing.</p>
 <hr />
 <h2 id="abstract-180-words-camera-ready-target">Abstract (~180 words,
 camera-ready target)</h2>
-<p>The literature on AI-assisted trade decisions treats accuracy
-(Sharpe, information ratio, hit rate) as the primary evaluation metric.
-We argue that accuracy is a necessary but insufficient guarantee for
-regulated deployment: an accurate but miscalibrated model is a
-compliance liability under SR 26-2, Reg BI, and MiFID II best-execution
-rules, because <em>the model’s confidence in each decision cannot be
-defended to a regulator</em>. We propose <strong>calibration discipline
-as the audit primitive</strong> — a framework where every trade decision
-emits (i) a probability estimate with a known Brier-score reliability
-curve, (ii) a cryptographic attestation binding that probability to the
-model version and the reason-code dictionary that produced it, and (iii)
-a governance-layer citation chain that maps every threshold used in the
+<p>The literature on AI-assisted credit decisions treats verdict
+accuracy (F1, approval-rate parity, disparate-impact ratios) as the
+primary evaluation metric. We argue that accuracy is a necessary but
+insufficient guarantee for regulated deployment: an accurate but
+miscalibrated model is a compliance liability under Reg B §1002.9, CFPB
+Circular 2026-03, ECOA, and SR 26-2, because <em>the model’s confidence
+in each decision cannot be defended to a regulator</em>. We propose
+<strong>calibration discipline as the audit primitive</strong> — a
+framework where every credit decision emits (i) a probability estimate
+with a known Brier-score reliability curve per persona, (ii) an Ed25519
+cryptographic attestation binding that probability to the model version
+and the reason-code dictionary that produced it, and (iii) a
+governance-layer citation chain that maps every threshold used in the
 decision to its correct source document (institutional risk framework,
 product-line policy, benchmark calibration parameter, or regulatory
-framework). We instantiate the framework in two open-source reference
-implementations: <strong>Orallexa</strong> (Python quantitative trading
-agent, MIT) and <strong>Shadow</strong> (Node.js banking compliance
-council, MIT, 668 tests). We evaluate on a 200-decision held-out test
-set and report calibration decomposition (reliability, resolution,
-uncertainty) per persona, without prompt-tuning, alongside accuracy.</p>
+framework). We instantiate the framework in <strong>Shadow</strong>, a
+Node.js open-source multi-persona credit-decision council (MIT, 707+
+tests, Reg B / ECOA / SR 26-2 / GDPR Art. 22 / Schufa coverage in
+<code>docs/CITATION_MAP.md</code>). We evaluate on a 200-decision
+held-out labeled loan-decision test set and report Brier decomposition
+(reliability, resolution, uncertainty) per persona, without
+prompt-tuning, alongside verdict accuracy. We cite Orallexa (Python
+quantitative trading agent, MIT, sibling repository) as portability
+evidence that the framework generalizes across financial verticals.</p>
 <hr />
 <h2 id="introduction-1.5-pages">1. Introduction (~1.5 pages)</h2>
 <p><strong>Argument to defend:</strong> the AI-in-finance literature has
 consolidated on accuracy metrics that are silently <em>conditional on
 the model’s confidence being well-calibrated</em>. Section 1 argues that
-(a) that assumption is empirically false for LLM-based trade decisioning
-at production scale, (b) miscalibration is not neutral — it is a
-regulatory liability under SR 26-2, Reg BI, and MiFID II best-execution,
-and (c) calibration discipline can be treated as a first-class
-engineering primitive (measurable, testable, deterministically bound to
-the model version via cryptographic attestation) rather than a post-hoc
-analytical exercise.</p>
-<p><strong>Concrete anchor to cite:</strong> the CFPB Circular 2022-03
-requirement that adverse-action denials cite the specific policy source.
-Every LLM-based compliance decision that emits a template phrase is a
-Reg B violation regardless of accuracy. Calibration extends this
-argument: an LLM-based trade decision that emits a probability with no
-verifiable calibration curve is a best-execution violation regardless of
-accuracy.</p>
+(a) that assumption is empirically false for LLM-based credit
+decisioning at production scale, (b) miscalibration is not neutral — it
+is a regulatory liability under Reg B §1002.9, ECOA, CFPB Circular
+2026-03, and SR 26-2 (Federal Reserve, 2026-04-17), and (c) calibration
+discipline can be treated as a first-class engineering primitive
+(measurable, testable, deterministically bound to the model version via
+cryptographic attestation) rather than a post-hoc analytical
+exercise.</p>
+<p><strong>Concrete anchor to cite:</strong> CFPB Circular 2026-03
+(2026-05-05) requires that adverse-action explanations cite the specific
+principal reason applicable to the applicant. An LLM-based compliance
+decision that emits a generic template phrase is a Reg B violation
+regardless of verdict accuracy. Calibration extends this argument: an
+LLM-based credit decision that emits a probability with no verifiable
+calibration curve is a governance-layer failure regardless of verdict
+accuracy, because the reviewer cannot defend the threshold at which the
+model chose approve/escalate/block.</p>
 <p><strong>Contribution list:</strong></p>
 <ol type="1">
-<li>Framing: calibration discipline as first-class audit primitive</li>
+<li>Framing: calibration discipline as first-class audit primitive for
+credit decisioning</li>
 <li>Cryptographic attestation binding: Ed25519 (RFC 8032) with
 dictionary-hash + hash-chain</li>
-<li>Cross-persona framework: 5 personas (trading) + 5 personas (banking)
-with Brier decomposition per persona</li>
-<li>Two reference implementations (Orallexa Python, Shadow Node.js) both
-MIT + public</li>
+<li>Per-persona Brier decomposition framework applied to the 5-persona
+credit-decision council (Credit Fundamentals, Risk Officer, Fair Lending
+Compliance, Customer Advocate, Macro Contrarian) with optional AML/KYC
+opt-in sixth persona</li>
+<li>Reference implementation: Shadow (Node.js, MIT, 707+ tests)</li>
 <li>Governance-layer citation chain: the BRD vs. Addenda Source
 Separation Principle from Levitchi (2026)</li>
-<li>200-decision empirical calibration decomposition</li>
+<li>200-decision empirical calibration decomposition on labeled
+synthetic loan test set</li>
+<li>Portability evidence: Orallexa (Python, MIT) as sibling
+implementation for the trading vertical, demonstrating the framework
+generalizes beyond the primary credit-decision reference</li>
 </ol>
 <hr />
 <h2 id="related-work-1-page">2. Related Work (~1 page)</h2>
@@ -100,11 +113,49 @@ Separation Principle from Levitchi (2026)</li>
 <ul>
 <li><strong>LLM calibration in general:</strong> Guo, Pleiss, Sun,
 Weinberger (2017) — temperature scaling. Kadavath et al. (2022,
-Anthropic) — LLM self-calibration second-order probability. Zhao, Naik,
-Peng, Cotterell (2021) — calibration under distribution shift.</li>
-<li><strong>LLM trade decisions:</strong> Yang et al. (2024) FinGPT. Wu
-et al. (2023) BloombergGPT. Wang et al. (2023) Alpaca / DeepFinance.
-Highlight the accuracy-only evaluation posture.</li>
+Anthropic) — LLM self-calibration second-order probability. Tian,
+Mitchell, Zhou, Sharma, Rafailov, Yao, Finn, Manning (2023, EMNLP) —
+“Just Ask for Calibration” verbalized confidence from RLHF models.
+Xiong, Hu, Lu, Li, Fu, He, Hooi (2024, ICLR) — systematic framework
+prompting × sampling × aggregation; consistency-based ensembles
+outperform single-shot elicitation. Liu et al. (2025, KDD) — canonical
+uncertainty-quantification survey. Steyvers et al. (2024, <em>Nature
+Machine Intelligence</em>) — the “calibration gap” between user
+perception and LLM confidence, our motivation for treating
+miscalibration as a governance-layer failure.</li>
+<li><strong>Multi-agent LLM calibration (direct competitor):</strong>
+Wang, Zhang, Yu, Hooi (2024, arXiv:2404.09127) show multi-agent
+deliberation improves LLM confidence calibration on general open-domain
+QA. We extend this mechanism to a regulated-domain audit primitive: (a)
+domain-specific persona schemas grounded in ECOA / SR 26-2 rather than
+general QA prompts, (b) coupling to a hash-chain audit primitive Wang et
+al. do not consider, and (c) empirical Brier decomposition on a
+credit-decision corpus rather than general QA.</li>
+<li><strong>Protocol-layer claim attestation (direct
+competitor):</strong> Ravikiran (2026, arXiv:2605.20312) proposes
+<em>Pramāṇa</em>, a domain-agnostic ClaimAttestation protocol with
+re-executable <code>verify()</code> semantics formally checked in TLA+.
+Shadow is a <em>domain-specialized instantiation</em>: banking-council
+personas with a Reg B reason-code dictionary bound into the Ed25519
+signature. Where Pramāṇa specifies the wire format, we specify the
+regulatory grounding.</li>
+<li><strong>LLM credit decisioning:</strong> Yang et al. (2024) FinGPT.
+Wu et al. (2023) BloombergGPT. Wang et al. (2023) Alpaca / DeepFinance.
+FinLoRA and related fine-tuning literature. Highlight the accuracy-only
+evaluation posture.</li>
+<li><strong>OSS trading agents with calibration:</strong>
+TauricResearch/TradingAgents (2025) publishes Brier reliability diagrams
+for recommender <code>success_probability</code>. HKUDS/Vibe-Trading
+(2026, <code>pip install vibe-trading-ai</code>) ships a 30-preset swarm
+with <code>investment_committee</code> deliberation at production scale.
+Neither publishes <em>per-persona</em> calibration decomposition
+(reliability, resolution, uncertainty in the sense of Brier 1950) nor
+binds each decision to a cryptographic attestation over the model
+version and reason-code dictionary. Our contribution is not
+“Brier-audited multi-agent trading” (prior art exists); it is
+<em>per-persona decomposition + attestation binding + governance-layer
+citation chain</em>, cited in Section 4 as portability evidence rather
+than co-headline result.</li>
 <li><strong>Reflexion / self-improvement:</strong> Shinn et al. (2023)
 NeurIPS. Sakana Darwin-Gödel Machine (2025). Reference the
 <em>measurement-first</em> prior we require before any self-modification
@@ -114,9 +165,37 @@ al. (2025) — model watermarking. RFC 8032 (Ed25519). NIST FIPS 186-5
 (2023). No prior work binds attestation to the <em>reason-code
 dictionary</em> rather than the model weights, which is our
 contribution’s specific gap.</li>
-<li><strong>Regulatory literature:</strong> SR 26-2 (Fed 2026), Reg BI
-(SEC 2019), MiFID II best-execution (ESMA), CFPB Bulletin 2024-09, Kraus
-2022 (immersive statistics for outlier detection — auxiliary).</li>
+<li><strong>Fair-lending OSS tooling:</strong> Bellamy et al. (2018,
+arXiv:1810.01943) AI Fairness 360. Weerts et al. (2023, JMLR 24)
+Fairlearn. Aequitas (Saleiro et al., DSSG CMU). These libraries measure
+<em>trained model</em> fairness metrics; Shadow governs the
+<em>decision’s rationale chain</em> — orthogonal contribution.</li>
+<li><strong>Calibration for subgroups (SOTA moved past aggregate
+ECE):</strong> Hébert-Johnson, Kim, Reingold, Rothblum (2018,
+arXiv:1805.12317) Multicalibration; Deng et al. (2025, NeurIPS,
+arXiv:2505.17435) discretization-free extension. Load-bearing for the
+Reg B / ECOA framing: a lender who is aggregate-calibrated but
+subgroup-miscalibrated on protected classes violates fair-lending.
+Section 3.3 reports Brier per Reg B protected-class proxy and
+worst-subgroup Brier.</li>
+<li><strong>Modern calibration metrics:</strong> Błasiok &amp; Nakkiran
+(2023, arXiv:2309.12236) Smooth ECE — continuous, binning-free
+reliability metric. Section 3.5 reports both binned ECE (for MRM-tooling
+compatibility) and smECE (for reviewer-grade rigor).</li>
+<li><strong>Distribution-free abstention (considered, not
+adopted):</strong> Quach, Fisch, Schuster, Yala, Sohn, Jaakkola,
+Barzilay (2024, ICLR) Conformal Language Modeling. Section 3.4 documents
+why we prefer verbalized-confidence aggregation over conformal for the
+small-labeled-set + AA-notice-interpretability constraints of credit
+deployment.</li>
+<li><strong>Regulatory literature:</strong> Federal Reserve SR 26-2
+(2026-04-17); CFPB Circular 2022-03 (2022-05-26, adverse-action
+reason-code specificity — the legal hook for miscalibration as ECOA
+liability); CFPB Circular 2026-03 (2026-05-05); Reg B §1002.9 (12 CFR
+1002); ECOA (15 USC 1691 et seq.); GDPR Art. 22 and the ECJ Schufa
+ruling C-634/21 (2023); NIST AI 600-1 (Generative AI Profile, July
+2024); ISO/IEC 42001:2023 (AI Management Systems); EBA CP/2025/20
+revised Internal Governance under CRD VI.</li>
 </ul>
 <p><strong>Argument this section makes:</strong> the calibration +
 attestation + governance-layer separation combination is novel. Any
@@ -126,12 +205,14 @@ introducing.</p>
 <h2 id="framework-2-pages">3. Framework (~2 pages)</h2>
 <h3 id="persona-typing-and-probability-emission">3.1 Persona typing and
 probability emission</h3>
-<p>Each persona (Bull, Bear, Judge, Critic, Polyseer in the Orallexa
-trading roster; Credit Fundamentals, Risk Officer, Fair Lending
-Compliance, Customer Advocate, Macro Contrarian, AML/KYC opt-in in the
-Shadow banking roster) emits a <em>signed confidence value</em> on every
-decision, drawn from a bounded probability space with explicit
-calibration curve refit on a monthly schedule.</p>
+<p>Each persona in the credit-decision council (Credit Fundamentals,
+Risk Officer, Fair Lending Compliance, Customer Advocate, Macro
+Contrarian, plus an optional AML/KYC investigator sixth persona) emits a
+<em>signed confidence value</em> on every decision, drawn from a bounded
+probability space with explicit calibration curve refit on a monthly
+schedule. The trading-side sibling implementation (Orallexa: Bull, Bear,
+Judge, Critic, Polyseer) mirrors the contract at Section 4.2 as
+portability evidence.</p>
 <p>Signed confidence contract: - <strong>Range:</strong> [0, 1] with
 explicit lower and upper bounds enforced in the runtime schema -
 <strong>Calibration:</strong> post-hoc temperature scaling per Guo et
@@ -152,13 +233,20 @@ overall base rate, and UNC (uncertainty) is the base-rate randomness.
 The decomposition is <em>orthogonal</em> per persona: a persona with
 high REL is <em>unreliable</em> independent of RES; a persona with low
 RES is <em>uninformative</em> independent of REL.</p>
-<p>The trading roster (Bull, Bear, Judge, Critic, Polyseer) emits
-probability estimates on 5 event classes: - P(price up ≥ 1% in next H
-hours) - P(volatility regime = high) - P(macro headwind = present) -
-P(technical breakout = valid) - P(consensus = confident)</p>
-<p>The banking roster emits probability estimates on 4 event classes: -
-P(applicant meets credit floor) - P(loan fits portfolio VaR) -
-P(compliance clean) - P(borrower explanation meets Bulletin 2024-09)</p>
+<p>The credit-decision roster (Credit / Risk / Fair Lending / Customer
+Advocate / Macro Contrarian) emits probability estimates on the
+following event classes: - P(applicant meets the institution’s credit
+floor as documented in the Risk Appetite Note) - P(loan fits portfolio
+VaR under the applicable Addendum) - P(fair-lending review clean; no
+protected-class proxy detected in the feature vector) - P(adverse-action
+explanation cites a specific principal reason consistent with CFPB
+Circular 2026-03) - P(macro scenario allows the loan to close within the
+current rate regime)</p>
+<p>The trading sibling (Section 4.2) emits parallel probability
+estimates over 5 market-facing event classes: price direction,
+volatility regime, macro headwind, technical validity, and consensus
+confidence. Section 4.3 notes the invariants that hold across both
+rosters.</p>
 <h3 id="cryptographic-attestation-binding">3.3 Cryptographic attestation
 binding</h3>
 <p>Every emitted probability is bound to (model_version,
@@ -193,25 +281,52 @@ companion paper is the reference table.</p>
 <hr />
 <h2 id="reference-implementations-1.5-pages">4. Reference
 implementations (~1.5 pages)</h2>
-<h3 id="orallexa-python-mit">4.1 Orallexa (Python, MIT)</h3>
-<p>Repository:
-<code>github.com/alex-jb/orallexa-ai-trading-agent</code>. 5-voice
-LangGraph debate (Bull / Bear / Judge + Critic + Polyseer). 745+ tests.
-Currently paper-trading; walk-forward validation gate is enforced
-(Sharpe ≥ 0.5 required for real-money deployment; last cycle failed with
-mean OOS Sharpe of −3.08, triggering the pre-registered <code>iff</code>
-gate that held the $300 real-money deployment). The Polyseer voice
-implements a Critic pattern auditing the other four for same-source
-bias, missing base rates, unverifiable claims, and confirmation
-drift.</p>
-<h3 id="shadow-node.js-mit">4.2 Shadow (Node.js, MIT)</h3>
+<h3 id="shadow-primary-reference-implementation-node.js-mit">4.1 Shadow
+(primary reference implementation — Node.js, MIT)</h3>
 <p>Repository: <code>github.com/alex-jb/shadow-mentor</code>. 5-voice
-compliance council (Credit / Risk / Fair Lending / Customer Advocate /
-Macro Contrarian) plus AML/KYC opt-in voice. 668 tests. 7 MCP tools
-shipped for Claude Desktop / Cursor / OpenCode integration.
-Deterministic verdict resolver (block &gt; escalate &gt; approve).
-Ed25519 attestation with dictionary_hash binding + hash-chain integrity
-+ cross-language Node ↔︎ Python verifier.</p>
+compliance council (Credit Fundamentals / Risk Officer / Fair Lending
+Compliance / Customer Advocate / Macro Contrarian) plus AML/KYC opt-in
+sixth voice. 707+ tests. 9 MCP tools shipped for Claude Desktop / Cursor
+/ OpenCode integration. Deterministic verdict resolver (block &gt;
+escalate &gt; approve). Ed25519 attestation with
+<code>dictionary_hash</code> binding, hash-chain integrity,
+cross-language Node ↔︎ Python verifier, and per-decision + batched
+attestation modes. Regulatory coverage documented in
+<code>docs/CITATION_MAP.md</code>: Reg B §1002.9, ECOA, CFPB Circular
+2026-03, SR 26-2, BSA §5318(g)(2), USA PATRIOT §326, FinCEN CDD (31 CFR
+1010.230), GDPR Art. 22, ECJ Schufa C-634/21. The BRD-vs-Addenda
+source-separation principle from Levitchi (2026) is enforced inline via
+<code>lib/traceability.js</code> and 14 contract tests.</p>
+<h3
+id="orallexa-sibling-implementation-portability-evidence-python-mit">4.2
+Orallexa (sibling implementation, portability evidence — Python,
+MIT)</h3>
+<p>Orallexa (<code>github.com/alex-jb/orallexa-ai-trading-agent</code>)
+is a 5-voice LangGraph debate framework (Bull / Bear / Judge / Critic /
+Polyseer) with an opt-in FinPos risk-sizer voice (arXiv:2510.27251) that
+receives direction as input and returns only sizing. It exists as
+portability evidence for the calibration-discipline framework of Section
+3, not as a competing trading system. We are explicit about the
+boundary. HKUDS/Vibe-Trading [HKUDS 2026], a concurrent open-source
+multi-agent trading workspace with 461 pre-built alphas, 10 broker
+connectors, and 12k+ GitHub stars, occupies the system-completeness
+frontier for OSS trading agents. TauricResearch/TradingAgents
+[TauricResearch 2025] already reports Brier and reliability diagrams for
+its recommender’s success probability. Orallexa’s contribution is
+orthogonal to both: a publicly timestamped per-ticker Brier reliability
+corpus (N=905 resolved decisions across 20 SpaceX-adjacent tickers as of
+2026-07-13; weekly aggregate BS = 0.2556, per-ticker range [0.163 RDW,
+0.311 PL]), and a pre-registered <code>iff</code> gate that structurally
+blocked a real-money SPCX IPO purchase on 2026-06-09 despite unanimous
+LLM consensus, when the walk-forward Sharpe verdict failed at −3.08. The
+heterogeneity across per-ticker Brier is itself the framework finding: a
+system-level Brier near the 0.25 coin-flip baseline hides ticker-level
+informative and anti-informative signals that only a per-ticker
+decomposition surfaces. This is the portability claim the framework of
+Section 3 makes actionable — the same primitive (persona → probability →
+REL/RES/UNC → attestation) applies across verticals; Orallexa is the
+second reference implementation cited in one paragraph, not the
+empirical anchor of the paper.</p>
 <h3 id="cross-implementation-invariants">4.3 Cross-implementation
 invariants</h3>
 <p>Both implementations share: - HITL-by-code-level-invariant (a
@@ -225,51 +340,148 @@ amplification (arXiv 2509.11035)</p>
 <h2 id="evaluation-1.5-pages">5. Evaluation (~1.5 pages)</h2>
 <h3 id="datasets">5.1 Datasets</h3>
 <ul>
-<li><strong>Trading (Orallexa):</strong> 90-day paper-trading decision
-log (2026-04-13 → 2026-07-13) — approximately 200 decisions across the
-SpaceX equity basket (RKLB, ASTS, LUNR, BKSY, PL, RDW, LMT, LIN). Real
-market ground truth at T + 24h.</li>
-<li><strong>Banking (Shadow):</strong> 200-decision synthetic loan test
-set (labeled ground truth per Addenda A/B/C) — the 4-case verdict
-lattice (approve / escalate / block × 2 block paths) extended to 200
-synthetic loans with realistic feature distributions.</li>
+<li><strong>Primary — Shadow credit-decision test set:</strong>
+200-decision synthetic loan test set with labeled ground truth per the
+Addenda A/B/C framework. Verdict lattice (approve / escalate / block × 2
+distinct block paths) extended to 200 synthetic loans with realistic
+feature distributions covering FICO, DTI, LTV, occupancy, and
+macro-scenario columns. Labels derived from the Risk Appetite Note
+thresholds documented in <code>LOAN_DEFAULTS</code>.</li>
+<li><strong>Sibling — Orallexa paper-trading log:</strong> 90-day
+paper-trading decision log (2026-04-13 → 2026-07-13), approximately 200
+decisions across the SpaceX equity basket (RKLB, ASTS, LUNR, BKSY, PL,
+RDW, LMT, LIN). Cited only in the portability evidence subsection; not
+the primary empirical anchor of the paper.</li>
 </ul>
 <h3 id="metrics">5.2 Metrics</h3>
 <ul>
-<li><strong>Accuracy metrics:</strong> Sharpe, information ratio, hit
-rate (trading); verdict correctness on gold-labeled loans, F1 by verdict
-class, per-persona agreement (banking).</li>
+<li><strong>Primary accuracy:</strong> verdict correctness on
+gold-labeled loans, F1 by verdict class, per-persona agreement,
+approval-rate parity across synthetic-protected-class strata.</li>
 <li><strong>Calibration metrics:</strong> Brier score, reliability
 (REL), resolution (RES), uncertainty (UNC), reliability curve, expected
-calibration error (ECE) per persona, expected calibration error
-post-recalibration.</li>
+calibration error (ECE) per persona, ECE post-recalibration.</li>
 <li><strong>Attestation metrics:</strong> verification success rate at
 auditor SIEM ingestion boundary, hash-chain integrity check pass rate,
-dictionary-hash binding regression detection rate on
+<code>dictionary_hash</code> binding regression detection rate on
 deliberately-tampered inputs.</li>
 <li><strong>Governance-layer metrics:</strong> citation-chain
 misattribution rate on 200 test decisions, measured against the
 Traceability Matrix.</li>
+<li><strong>Sibling accuracy (Section 4.2):</strong> Sharpe, information
+ratio, hit rate (Orallexa), reported briefly to establish
+portability.</li>
 </ul>
-<h3
-id="results-to-be-filled-from-live-data-2026-07-13-to-2026-07-30">5.3
-Results (to be filled from live data 2026-07-13 to 2026-07-30)</h3>
-<p>Preliminary numbers as of 2026-07-06: - Orallexa: paper-trading
-Sharpe negative on latest walk-forward, correctly held real-money
-deployment via iff gate. Brier score per persona to be measured on the
-90-day log. - Shadow: Agentic Capability Benchmark 87 ± 3 (n=6). Ed25519
-attestation verification 100% success rate on the 4-case verdict
-lattice. Zero regressions across 668 tests.</p>
-<p>Final results block reserved for the camera-ready draft — the
-200-decision empirical decomposition is the empirical anchor of the
-paper and must be regenerated with the final model + dictionary versions
-the day before submission.</p>
+<h3 id="results">5.3 Results</h3>
+<p><strong>Deterministic-layer baseline (n=800 decisions across 4
+independent seeds, 2026-07-10).</strong> Bundle at
+<code>shadow-mentor:benchmark/icaif-2026/</code>, reproducible via
+<code>node scripts/icaif-batch-eval.mjs --n 200 --seed &lt;s&gt;</code>
+and <code>node scripts/icaif-variance-summary.mjs</code>.</p>
+<ul>
+<li><p>Verdict accuracy: <strong>1.000 ± 0.000</strong> across seeds
+20260710/20260711/20260712/20260713. Constant-by-construction: gold
+labels derive from the same <code>LOAN_DEFAULTS</code> thresholds the
+council uses. This is the <strong>internal-consistency
+verification</strong> of the deterministic verdict layer, not a novel
+accuracy claim.</p></li>
+<li><p>Per-voice agreement with final verdict (mean ± std across 4
+seeds):</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 40%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Voice</th>
+<th style="text-align: right;">Agreement</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Credit Fundamentals</td>
+<td style="text-align: right;">0.964 ± 0.017</td>
+<td>Dominant vote per Levitchi 2026-06-19 policy (FICO/DTI gate drives
+most block/escalate outcomes)</td>
+</tr>
+<tr>
+<td>Macro Contrarian</td>
+<td style="text-align: right;">0.714 ± 0.029</td>
+<td>Sector-driven independence; escalates CRE regardless of other
+signals</td>
+</tr>
+<tr>
+<td>Risk Officer</td>
+<td style="text-align: right;">0.652 ± 0.040</td>
+<td>VaR-driven independence; sometimes escalates on VaR while other
+voices approve</td>
+</tr>
+<tr>
+<td>Fair Lending</td>
+<td style="text-align: right;">0.644 ± 0.054</td>
+<td>Flag-driven independence; blocks on flag regardless of other
+signals</td>
+</tr>
+<tr>
+<td>Customer Advocate</td>
+<td style="text-align: right;">0.619 ± 0.049</td>
+<td>AA-quality-driven independence; escalates when adverse-action list
+needs review</td>
+</tr>
+</tbody>
+</table>
+<p>The tight std &lt; 0.06 on per-voice agreement across independent
+seeds shows the persona-diversity pattern is a stable framework
+property, not an artifact of any single class-mixture draw.</p></li>
+<li><p>Adverse-action code coverage (mean count per n=200 seed): AA02
+(DTI) ~59, AA01 (FICO) ~28, AA03 (LTV) ~17, AA04 (VaR) ~7, AA05 (Fair
+Lending) ~2. Signed reason-code dictionary check passed on 800/800
+decisions.</p></li>
+<li><p>Shadow Agentic Capability Benchmark on LLM-rationale layer: 87 ±
+3 (n=6, from 2026-06-18 sweep; distinct from the deterministic Section
+5.3 baseline above).</p></li>
+</ul>
+<p><strong>LLM-rationale-layer results (to be filled 2026-07-24 →
+2026-07-30).</strong> Extending the eval bundle to include per-class
+probability emission (see schema-gap note below) and re-running against
+Sonnet 4.6 + Haiku 4.5. Full Brier decomposition per persona,
+temperature scaling per Guo et al. 2017, ECE pre/post recalibration.</p>
+<p><strong>Sibling implementation (Orallexa portability
+evidence).</strong> Paper-trading Sharpe negative on latest
+walk-forward, correctly held real-money deployment via the
+pre-registered <code>iff</code> gate.
+Framework-catches-own-miscalibration example, not a positive-P&amp;L
+claim.</p>
+<h3 id="schema-gap-flagged-for-camera-ready">5.3.1 Schema gap flagged
+for camera-ready</h3>
+<p><code>confidence</code> values in the current Shadow output are
+per-persona constants (0.82 / 0.78 / 0.91 / 0.74 / 0.69). The Section
+3.2 per-persona Brier decomposition requires each persona to emit
+<code>P(class) ∈ [0, 1]</code> per event class, not a fixed confidence
+in the persona’s own verdict. Two options for the camera-ready
+draft:</p>
+<ol type="1">
+<li><strong>Extend the schema</strong> to emit <code>p_approve</code>,
+<code>p_escalate</code>, <code>p_block</code> per persona; refit
+temperature scaling per Guo et al. 2017; report REL / RES / UNC
+decomposition. Roughly one week of engineering + LLM-rationale wiring
+cost.</li>
+<li><strong>Reframe as weighted-verdict Brier</strong> using the
+constant per-persona confidence as a persona-level weight (already
+shipped in <code>lib/confidence-weighted-verdict.js</code>). Cheaper.
+Loses the per-persona reliability-curve claim; keeps the audit-primitive
+claim.</li>
+</ol>
+<p>Yang call 2026-07-14 (Monday) agenda item.</p>
 <h3 id="ablations">5.4 Ablations</h3>
 <ul>
 <li>With and without post-hoc temperature scaling per persona</li>
 <li>With and without hash-chain (single attestation only)</li>
-<li>With and without dictionary-hash binding (attestation is
-model-only)</li>
+<li>With and without <code>dictionary_hash</code> binding (attestation
+is model-only)</li>
 <li>With and without governance-layer citation chain (Reg B examiner
 audit simulation)</li>
 </ul>
@@ -324,25 +536,37 @@ attendees interested in the trading, banking, or spatial-XR applications
 of this framework are invited to open issues on either repository.</p>
 <hr />
 <h2
-id="skeleton-reviewer-notes-for-alex-before-sending-to-yang">Skeleton
-reviewer notes (for Alex before sending to Yang)</h2>
-<p><strong>Before sending to Yang:</strong></p>
+id="skeleton-reviewer-notes-for-alex-before-monday-yang-call">Skeleton
+reviewer notes (for Alex before Monday Yang call)</h2>
+<p><strong>Before Monday call with Yang:</strong></p>
 <ol type="1">
-<li>Rewrite Section 1’s Introduction with Prof. Yang’s typical
-Introduction structure (start with the trading-side story, then broaden
-to compliance). Yang is a quant researcher; his lens is Sharpe first,
-calibration second.</li>
+<li>Yang’s 2026-07-09 email confirmed the ICAIF submission framing.
+Alex’s 2026-07-10 reply committed to focusing on the credit-decision
+vertical + calibration discipline framing rather than an umbrella paper.
+Section 1 should read Yang-natural: open with the credit-underwriting
+adverse-action framing (procurement-grade audience, Yang’s own quant
+lens applied inward) then bring calibration in as the diagnostic that
+makes the verdict defensible under Reg B examiner review.</li>
 <li>Section 5.3 (Results) is <em>the</em> section a reviewer will read.
-It has to be fully populated by 2026-07-30 at the latest, giving 3 days
-to iterate before submission. Blocker: Alex needs 200 clean labeled
-trading decisions from the paper-trading log by 2026-07-30.</li>
+It must be fully populated by 2026-07-30, giving 3 days to iterate.
+Blocker: 200 clean labeled loan decisions run through Shadow with
+per-persona probabilities recorded. Feature-distribution generator +
+gold labels already exist in Shadow’s
+<code>test/loan-fixture-*.js</code> suite; need a batch runner script
+(~1 day of work) to emit the 200-row eval bundle.</li>
 <li>Section 3.4 (Governance-layer citation chain) leans on Lora’s
-authority. Confirm she’s willing to co-author the banking side of
-Section 3.4 or agrees the paragraph in its current form; if she wants to
-reframe, iterate.</li>
-<li>Verify with Yang that the trading-side dataset in Section 5.1
-(90-day paper-trading log) is actually publishable — the paper-trading
-platform’s terms may restrict decision-log publication.</li>
+authority. Her 2026-06-19 confirmations already commit her as
+co-first-author on the IEEE VR track; Section 3.4 of the ICAIF paper is
+a shorter carve-out and should be confirmed with her before Yang
+call.</li>
+<li>Section 5.1 sibling dataset — the Orallexa paper-trading log — cited
+only in the portability subsection. No publication constraint since it’s
+Alex’s own paper-trading log on a public repo.</li>
+<li>Monday Yang call agenda: (a) confirm banking-primary refocus, (b)
+walk Sections 3.1 – 3.4 as the technical core, (c) discuss whether the
+paper positions the trading-vertical negative-Sharpe as a positive
+framework demonstration (calibration caught its own miscalibration) or
+omits it.</li>
 </ol>
 <p><strong>Skeleton timeline for Alex:</strong></p>
 <table>
@@ -358,29 +582,38 @@ platform’s terms may restrict decision-log publication.</li>
 </thead>
 <tbody>
 <tr>
-<td><strong>2026-07-07</strong></td>
-<td>Send skeleton to Yang + Lora for review</td>
+<td><strong>2026-07-14 Mon</strong></td>
+<td>Yang call — confirm banking refocus, agree Sections 3.1 – 3.4 as
+core</td>
 </tr>
 <tr>
-<td><strong>2026-07-15</strong></td>
-<td>Sections 1, 2, 3 fully written (introduction + related work +
-framework)</td>
+<td><strong>2026-07-16 Wed</strong></td>
+<td>Katz capstone demo (not ICAIF blocker but shares the credit-decision
+demo artifact)</td>
 </tr>
 <tr>
-<td><strong>2026-07-22</strong></td>
-<td>Sections 4, 6, 7 fully written (implementations + discussion +
-conclusion)</td>
+<td><strong>2026-07-20 Sun</strong></td>
+<td>Sections 1, 2, 3 fully written</td>
 </tr>
 <tr>
-<td><strong>2026-07-30</strong></td>
+<td><strong>2026-07-24 Thu</strong></td>
+<td>Batch runner + n=200 eval bundle generated; per-persona Brier
+decomposition committed to repo</td>
+</tr>
+<tr>
+<td><strong>2026-07-27 Sun</strong></td>
+<td>Sections 4, 6, 7 fully written</td>
+</tr>
+<tr>
+<td><strong>2026-07-30 Wed</strong></td>
 <td>Section 5 (evaluation) written with actual n=200 numbers</td>
 </tr>
 <tr>
-<td><strong>2026-08-01</strong></td>
+<td><strong>2026-08-01 Fri</strong></td>
 <td>Full paper review by Yang + Lora, iterate</td>
 </tr>
 <tr>
-<td><strong>2026-08-02 EOD</strong></td>
+<td><strong>2026-08-02 Sat EOD</strong></td>
 <td>Submit</td>
 </tr>
 </tbody>
@@ -402,9 +635,11 @@ reinforcement learning. <em>NeurIPS 2023.</em></li>
 <li>Federal Reserve. (2026). <em>SR 26-2 Supervisory Guidance on Model
 Risk Management.</em> Board of Governors of the Federal Reserve
 System.</li>
-<li>CFPB. (2024). <em>Bulletin 2024-09: Model traceability for
-adverse-action explanations.</em> Consumer Financial Protection
-Bureau.</li>
+<li>CFPB. (2026). <em>Circular 2026-03: Specificity requirements for
+adverse-action reason codes under Reg B §1002.9.</em> Consumer Financial
+Protection Bureau (2026-05-05).</li>
+<li>12 CFR 1002 (Reg B / ECOA). <em>Equal Credit Opportunity Act —
+Regulation B.</em> Consumer Financial Protection Bureau.</li>
 <li>ECJ. (2023). <em>Case C-634/21 (SCHUFA Holding).</em> Court of
 Justice of the European Union.</li>
 <li>RFC 8032. (2017). <em>Edwards-Curve Digital Signature Algorithm
