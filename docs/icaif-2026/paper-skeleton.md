@@ -108,19 +108,30 @@ The trading sibling (Section 4.2) emits parallel probability estimates over 5 ma
 
 Every emitted probability is bound to (model_version, reason_code_dictionary_hash, decision_features) via Ed25519 signature. Any post-hoc dictionary edit — a jailbroken model rewriting a compliance rationale, a well-meaning contributor "cleaning up" prompt language — breaks verification at the auditor's SIEM ingestion boundary.
 
-Attestation schema:
+Attestation schema (Shadow reference implementation, MIT-licensed, `shadow-mentor@v2.0.3`):
 ```
 {
-  "model_version": "shadow-mentor@v1.5.11",
-  "reason_code_dictionary_hash": "sha256:...",
+  "model_version": "claude-sonnet-4-5-20250929",
+  "reason_code_dictionary_hash": "sha256:<64 hex chars>",
   "decision_features": {...},
-  "probability_by_persona": {...},
-  "previous_hash": "sha256:...",  // hash chain for tamper detection
-  "signature": "<Ed25519 signature bytes>"
+  "probability_by_persona": {
+    "credit_fundamentals": 0.87,
+    "risk_officer": 0.72,
+    "fair_lending": 0.94,
+    "customer_advocate": 0.88,
+    "macro_contrarian": 0.65
+  },
+  "previous_hash": "sha256:<64 hex chars>",
+  "signature": "<Ed25519 signature bytes, RFC 8032>"
 }
 ```
 
-Hash chain verification (v1.5.10) walks the chain in O(N) and detects any reordering, insertion, truncation, or edit-cascade with a single Ed25519 verification operation over concatenated hashes.
+**Two independent tamper-detection primitives layer inside the same signature envelope:**
+
+1. **Hash-chain integrity** (v2.0.3, verified across 1,504 tests including S1 truncation and S3 replay adversarial suites). Chain verification walks in O(N) and detects any reordering, insertion, truncation, or edit-cascade with a single Ed25519 verification operation over concatenated per-event hashes.
+2. **Dictionary-hash binding.** A post-hoc edit to the reason-code dictionary — a jailbroken model rewriting a compliance rationale, a well-meaning contributor "cleaning up" prompt language — invalidates the `reason_code_dictionary_hash` field and breaks signature verification at the auditor's SIEM ingestion boundary. This is a distinct threat surface from model-weight watermarking [Attar et al. 2025]: we bind to the *reason-code vocabulary* the persona is licensed to emit, not to the weights.
+
+The combination is what distinguishes Shadow's primitive from prior claim-attestation protocols [Ravikiran 2026] that specify wire format only, and from multi-agent calibration frameworks [Wang et al. 2024] that improve reliability without binding it to the regulatory citation chain.
 
 ### 3.4 Governance-layer citation chain (Section from Levitchi 2026)
 
